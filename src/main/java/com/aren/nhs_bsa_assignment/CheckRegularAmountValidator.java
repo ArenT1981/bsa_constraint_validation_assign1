@@ -15,28 +15,29 @@ import javax.validation.ConstraintValidatorContext;
 public class CheckRegularAmountValidator implements ConstraintValidator<CheckRegularAmount, RegularAmount>
 {
     //private RegularAmount regularAmountCheck;
-    
-    private void testFunction()
+
+    private boolean isValidNumericAmount(String inputAmount)
     {
-        
-        System.out.println("testing 123");
+        // Regular expression that requires number starts with at least one digit
+        // and optionally has a decimal point & two digits
+        return inputAmount.matches("^[0-9]+(\\.\\d{2})?$");
     }
-    
+
     @Override
     public void initialize(CheckRegularAmount constraintAnnotation)
     {
         System.out.println("testing init method");
 
         //this.regularAmountCheck = constraintAnnotation;
-        
+
         //throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public boolean isValid(RegularAmount value, ConstraintValidatorContext context)
     {
-        System.out.println(value.getFrequency());
-        testFunction();
+        boolean numericAmountCheck = isValidNumericAmount(value.getAmount());
+        System.out.println("Valid number? = " + numericAmountCheck);
         return false;
         //throw new UnsupportedOperationException("Not supported yet.");
     }
