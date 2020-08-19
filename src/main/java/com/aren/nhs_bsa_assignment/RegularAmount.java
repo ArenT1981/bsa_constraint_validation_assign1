@@ -18,7 +18,7 @@ public class RegularAmount
 {
     private Frequency frequency;
     
-    @Length(min=10,message="Test message. Less than 10.")
+    @Length(max=50,message="Test message. Less than 10.")
     private String amount; 
     
     public Frequency getFrequency() { return frequency; } 

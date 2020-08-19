@@ -20,11 +20,23 @@ import javax.validation.ValidatorFactory;
 public class RunAmount
 {
     // (Global) debugging messages on?
-    public final static boolean DEBUG = true;
+    public final static boolean DEBUG = false;
 
     // Run test dataset?
     private final static boolean RUNTESTS = true;
-
+    
+    // Some bling. Fancy console output colours (works under Unix)
+    // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_BLACK = "\u001B[30m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+    public static final String ANSI_PURPLE = "\u001B[35m";
+    public static final String ANSI_CYAN = "\u001B[36m";
+    public static final String ANSI_WHITE = "\u001B[37m";
+    
     private ArrayList<RegularAmount> getSampleAmountDataset()
     {
         ArrayList<RegularAmount> sampleAmountTestDataset = new ArrayList<RegularAmount>();
@@ -134,6 +146,17 @@ public class RunAmount
                     System.out.println(violation.getMessage());
                 }
             }
+            
+            System.out.println("====================="); 
+            // Did it pass the ConstraintValidator without any problems? (i.e is it VALID?)
+            if(violations.size() == 0)
+            { System.out.println(ANSI_GREEN + "PASSED" + ANSI_RESET); }                
+            else
+            { System.out.println(ANSI_RED + "FAILED" + ANSI_RESET); }
+                                      
+            System.out.println("Amount: " + amt.getAmount());
+            System.out.println("Frequency: " + amt.getFrequency());
+
         }
 
     }
@@ -157,7 +180,6 @@ public class RunAmount
             if(DEBUG)
             { System.out.println("Tests are not enabled."); }
         }
-        //RunAmount.validateSampleAmounts(RunAmount.getSampleAmountDataset());
     }
 
 }
