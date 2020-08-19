@@ -36,7 +36,7 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
     public boolean isValid(RegularAmount value, ConstraintValidatorContext context)
     {
         System.out.println(value.getFrequency());
-        testFucntion();
+        testFunction();
         return false;
         //throw new UnsupportedOperationException("Not supported yet.");
     }

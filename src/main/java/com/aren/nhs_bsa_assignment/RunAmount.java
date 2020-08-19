@@ -12,12 +12,16 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 /**
- *
+ * An amazing class that does something.
  * @author aren
  */
 public class RunAmount
 {
     
+    /**
+     *
+     * @param args do something
+     */
     public static void main(String args[])
     {
         RegularAmount newAmount = new RegularAmount();
@@ -27,7 +31,7 @@ public class RunAmount
         
         System.out.println("Hello");
         
-        
+        // Validate the Bean/class
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
         

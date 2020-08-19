@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.Length;
  * @author aren
  */
 
-@CheckRegularAmount(groups = {Default.class })
+@CheckRegularAmount //(groups = {Default.class })
 public class RegularAmount
 {
     private Frequency frequency;

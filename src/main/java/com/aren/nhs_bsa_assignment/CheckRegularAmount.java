@@ -27,7 +27,7 @@ import javax.validation.Payload;
 public @interface CheckRegularAmount
 {
 
-    String message() default "Default message"; //{com.aren.nhs_bsa_assignment.RegularAmount}";
+    String message() default "Default message indicating valdiation error."; //{com.aren.nhs_bsa_assignment.RegularAmount}";
 
     Class<?>[] groups() default 
     {
