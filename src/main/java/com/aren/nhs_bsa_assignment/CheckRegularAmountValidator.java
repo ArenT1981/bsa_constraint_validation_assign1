@@ -16,7 +16,8 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class CheckRegularAmountValidator implements ConstraintValidator<CheckRegularAmount, RegularAmount>
 {
-    //private RegularAmount regularAmountCheck;
+    // Debugging messages on?
+    private static final boolean DEBUG = RunAmount.DEBUG;
 
     private boolean isValidNumericAmount(String inputAmount)
     {
@@ -61,9 +62,13 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
 
     private boolean isValidExactPenceAmount(String amt, double divisor)
     {
-        System.out.println("Divisor is: " + divisor);
+        if(DEBUG)
+        { System.out.println("Divisor is: " + divisor); }
+
         double val = Double.parseDouble(amt) / divisor;
-        System.out.println("Double division result is: " + val);
+        
+        if(DEBUG)
+        { System.out.println("Double division result is: " + val); }
 
         BigDecimal checkCurrencyPence = new BigDecimal(val);
         return getNumberOfDecimalPlaces(checkCurrencyPence) <= 2; 
@@ -86,17 +91,31 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
 
         if (numericAmountCheck == true)
         {
-            System.out.println("Valid number: " + amt);
+            if(DEBUG)
+                System.out.println("Valid number: " + amt);
+            
             boolean validPenceAmount = isValidExactPenceAmount(amt, frequencyCheck);
             if(validPenceAmount)
-                System.out.println("VALID/EXACT Amount registered");
+            {
+                if(DEBUG)
+                { System.out.println("VALID/EXACT Amount registered"); }
+                
+                return true;
+            }
             else
-                System.out.println("INVALID/NON-EXACT pence amount registered");
-        } else
+            {
+                if(DEBUG)
+                { System.out.println("INVALID/NON-EXACT pence amount registered"); }
+                
+                return false;
+            }
+        } 
+        else
         {
-            System.out.println("Invalid number: " + amt);
+            if(DEBUG)
+            { System.out.println("Invalid number: " + amt); }
+            
+            return false;
         }
-
-        return false;
     }
 }

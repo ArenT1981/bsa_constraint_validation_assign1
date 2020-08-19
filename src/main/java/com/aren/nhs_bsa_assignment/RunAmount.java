@@ -14,12 +14,18 @@ import javax.validation.ValidatorFactory;
 
 /**
  * An amazing class that does something.
+ *
  * @author aren
  */
 public class RunAmount
 {
+    // (Global) debugging messages on?
+    public final static boolean DEBUG = true;
 
-    private static ArrayList<RegularAmount> getSampleAmountDataset()
+    // Run test dataset?
+    private final static boolean RUNTESTS = true;
+
+    private ArrayList<RegularAmount> getSampleAmountDataset()
     {
         ArrayList<RegularAmount> sampleAmountTestDataset = new ArrayList<RegularAmount>();
 
@@ -82,7 +88,7 @@ public class RunAmount
         amountTestValue10.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue10.setAmount("*");
         sampleAmountTestDataset.add(amountTestValue10);
-        
+
         // Test value 11 - valid number (TWO_WEEK), correct pence
         RegularAmount amountTestValue11 = new RegularAmount();
         amountTestValue11.setFrequency(RegularAmount.Frequency.TWO_WEEK);
@@ -94,39 +100,43 @@ public class RunAmount
         amountTestValue12.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
         amountTestValue12.setAmount("100000");
         sampleAmountTestDataset.add(amountTestValue12);
-               
+
         // Test value 13 - valid number (FOUR_WEEK), no exact pence
-        RegularAmount amountTestValue12 = new RegularAmount();
-        amountTestValue12.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
-        amountTestValue12.setAmount("99.99");
-        sampleAmountTestDataset.add(amountTestValue12);
-        
+        RegularAmount amountTestValue13 = new RegularAmount();
+        amountTestValue13.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
+        amountTestValue13.setAmount("99.99");
+        sampleAmountTestDataset.add(amountTestValue13);
+
         return sampleAmountTestDataset;
 
     }
 
-    private static void validateSampleAmounts(ArrayList<RegularAmount> amountDataset)
+    private void validateSampleAmounts(ArrayList<RegularAmount> amountDataset)
     {
         for(RegularAmount amt : amountDataset)
         {
-             System.out.println("Validating amount... ");
+            if(DEBUG)
+            { System.out.println("Validating amount... "); }
             // Validate the Bean/class
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();
 
             Set<ConstraintViolation<RegularAmount>> violations = validator.validate(amt);
 
-            System.out.println("Size is: " + violations.size());
+            if(DEBUG)
+            { System.out.println("Size is: " + violations.size()); }
 
-            // Display the validation messages
-            for(ConstraintViolation<RegularAmount> violation : violations)
+            if(DEBUG)
             {
-                System.out.println(violation.getMessage());
+                // Display the validation messages
+                for(ConstraintViolation<RegularAmount> violation : violations)
+                {
+                    System.out.println(violation.getMessage());
+                }
             }
         }
 
     }
-
 
     /**
      *
@@ -134,7 +144,20 @@ public class RunAmount
      */
     public static void main(String args[])
     {
-        RunAmount.validateSampleAmounts(RunAmount.getSampleAmountDataset());
+        if(RUNTESTS)
+        {
+            if(DEBUG)
+            { System.out.println("Initialising tests..."); }
+
+            RunAmount testDataset = new RunAmount();
+            testDataset.validateSampleAmounts(testDataset.getSampleAmountDataset());
+        } 
+        else
+        {
+            if(DEBUG)
+            { System.out.println("Tests are not enabled."); }
+        }
+        //RunAmount.validateSampleAmounts(RunAmount.getSampleAmountDataset());
     }
 
 }
