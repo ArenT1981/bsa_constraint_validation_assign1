@@ -26,10 +26,8 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
     @Override
     public void initialize(CheckRegularAmount constraintAnnotation)
     {
-        System.out.println("testing init method");
-
+        //System.out.println("testing init method");
         //this.regularAmountCheck = constraintAnnotation;
-
         //throw new UnsupportedOperationException("Not supported yet.");
     }
 
@@ -39,6 +37,5 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
         boolean numericAmountCheck = isValidNumericAmount(value.getAmount());
         System.out.println("Valid number? = " + numericAmountCheck);
         return false;
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 }

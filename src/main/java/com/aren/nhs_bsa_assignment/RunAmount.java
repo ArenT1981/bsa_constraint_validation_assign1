@@ -23,64 +23,64 @@ public class RunAmount
     {
         ArrayList<RegularAmount> sampleAmountTestDataset = new ArrayList<RegularAmount>();
 
-        // Test value 1
+        // Test value 1 - valid number
         RegularAmount amountTestValue1 = new RegularAmount();
         amountTestValue1.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue1.setAmount("100.00");
         sampleAmountTestDataset.add(amountTestValue1);
 
-        // Test value 2
+        // Test value 2 - valid number
         RegularAmount amountTestValue2 = new RegularAmount();
         amountTestValue2.setFrequency(RegularAmount.Frequency.WEEK);
-        amountTestValue2.setAmount("100.00");
+        amountTestValue2.setAmount("100000");
         sampleAmountTestDataset.add(amountTestValue2);
 
-        // Test value 3
+        // Test value 3 - invalid number (only one digit after decimal point)
         RegularAmount amountTestValue3 = new RegularAmount();
         amountTestValue3.setFrequency(RegularAmount.Frequency.WEEK);
-        amountTestValue3.setAmount("100.00");
+        amountTestValue3.setAmount("100.0");
         sampleAmountTestDataset.add(amountTestValue3);
 
-        // Test value 4
+        // Test value 4 - invalid number (contains a non-digit character)
         RegularAmount amountTestValue4 = new RegularAmount();
         amountTestValue4.setFrequency(RegularAmount.Frequency.WEEK);
-        amountTestValue4.setAmount("100.00");
+        amountTestValue4.setAmount("10f0.00");
         sampleAmountTestDataset.add(amountTestValue4);
 
-        // Test value 5
+        // Test value 5 - invalid number (contains a non-digit character)
         RegularAmount amountTestValue5 = new RegularAmount();
         amountTestValue5.setFrequency(RegularAmount.Frequency.WEEK);
-        amountTestValue5.setAmount("100.00");
+        amountTestValue5.setAmount("100.0a");
         sampleAmountTestDataset.add(amountTestValue5);
 
-        // Test value 6
+        // Test value 6 - invalid number (negative value)
         RegularAmount amountTestValue6 = new RegularAmount();
         amountTestValue6.setFrequency(RegularAmount.Frequency.WEEK);
-        amountTestValue6.setAmount("100.00");
+        amountTestValue6.setAmount("-100.00");
         sampleAmountTestDataset.add(amountTestValue6);
 
-        // Test value 7
+        // Test value 7 - invalid number (all characters)
         RegularAmount amountTestValue7 = new RegularAmount();
         amountTestValue7.setFrequency(RegularAmount.Frequency.WEEK);
-        amountTestValue7.setAmount("100.00");
+        amountTestValue7.setAmount("hello");
         sampleAmountTestDataset.add(amountTestValue7);
 
-        // Test value 8
+        // Test value 8 - invalid number (contains character)
         RegularAmount amountTestValue8 = new RegularAmount();
         amountTestValue8.setFrequency(RegularAmount.Frequency.WEEK);
-        amountTestValue8.setAmount("100.00");
+        amountTestValue8.setAmount("10hello");
         sampleAmountTestDataset.add(amountTestValue8);
 
-        // Test value 9
+        // Test value 9 - invalid number (empty string)
         RegularAmount amountTestValue9 = new RegularAmount();
         amountTestValue9.setFrequency(RegularAmount.Frequency.WEEK);
-        amountTestValue9.setAmount("100.00");
+        amountTestValue9.setAmount("");
         sampleAmountTestDataset.add(amountTestValue9);
 
-        // Test value 10
+        // Test value 10 - invalid number (special character)
         RegularAmount amountTestValue10 = new RegularAmount();
         amountTestValue10.setFrequency(RegularAmount.Frequency.WEEK);
-        amountTestValue10.setAmount("100.00");
+        amountTestValue10.setAmount("*");
         sampleAmountTestDataset.add(amountTestValue10);
         
         return sampleAmountTestDataset;
@@ -119,8 +119,8 @@ public class RunAmount
 
         System.out.println("Hello");
 
-        ArrayList<RegularAmount> sampleAmount = RunAmount.getSampleAmountDataset();
-        RunAmount.validateSampleAmounts(sampleAmount);
+        //ArrayList<RegularAmount> sampleAmount
+        RunAmount.validateSampleAmounts(RunAmount.getSampleAmountDataset());
 
     }
 
