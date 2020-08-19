@@ -83,6 +83,24 @@ public class RunAmount
         amountTestValue10.setAmount("*");
         sampleAmountTestDataset.add(amountTestValue10);
         
+        // Test value 11 - valid number (TWO_WEEK), correct pence
+        RegularAmount amountTestValue11 = new RegularAmount();
+        amountTestValue11.setFrequency(RegularAmount.Frequency.TWO_WEEK);
+        amountTestValue11.setAmount("100.00");
+        sampleAmountTestDataset.add(amountTestValue11);
+
+        // Test value 12 - valid number (FOUR_WEEK), correct pence
+        RegularAmount amountTestValue12 = new RegularAmount();
+        amountTestValue12.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
+        amountTestValue12.setAmount("100000");
+        sampleAmountTestDataset.add(amountTestValue12);
+               
+        // Test value 13 - valid number (FOUR_WEEK), no exact pence
+        RegularAmount amountTestValue12 = new RegularAmount();
+        amountTestValue12.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
+        amountTestValue12.setAmount("99.99");
+        sampleAmountTestDataset.add(amountTestValue12);
+        
         return sampleAmountTestDataset;
 
     }
@@ -116,12 +134,7 @@ public class RunAmount
      */
     public static void main(String args[])
     {
-
-        System.out.println("Hello");
-
-        //ArrayList<RegularAmount> sampleAmount
         RunAmount.validateSampleAmounts(RunAmount.getSampleAmountDataset());
-
     }
 
 }
