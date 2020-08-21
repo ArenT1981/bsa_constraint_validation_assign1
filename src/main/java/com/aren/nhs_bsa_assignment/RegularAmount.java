@@ -18,7 +18,9 @@ public class RegularAmount
 {
     private Frequency frequency;
     
-    @Length(max=50,message="Test message. Less than 10.")
+    // restrict maximum input to 11 digits (characters) for security/safety
+    // this allows maximum values up to £99999999999 or £99999999.99 theoretically...!
+    @Length(max=11,message="* Bad input. Greater than 11 characters.")
     private String amount; 
     
     public Frequency getFrequency() { return frequency; } 

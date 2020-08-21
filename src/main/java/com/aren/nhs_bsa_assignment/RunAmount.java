@@ -20,7 +20,7 @@ import javax.validation.ValidatorFactory;
 public class RunAmount
 {
     // (Global) debugging messages on?
-    public final static boolean DEBUG = false;
+    public final static boolean DEBUG = true;
 
     // Run test dataset?
     private final static boolean RUNTESTS = true;
@@ -39,7 +39,7 @@ public class RunAmount
     
     private ArrayList<RegularAmount> getSampleAmountDataset()
     {
-        ArrayList<RegularAmount> sampleAmountTestDataset = new ArrayList<RegularAmount>();
+        ArrayList<RegularAmount> sampleAmountTestDataset = new ArrayList<>();
 
         // Test value 1 - valid number
         RegularAmount amountTestValue1 = new RegularAmount();
@@ -118,6 +118,24 @@ public class RunAmount
         amountTestValue13.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
         amountTestValue13.setAmount("99.99");
         sampleAmountTestDataset.add(amountTestValue13);
+        
+        // Test value 14 - valid number (FOUR_WEEK), no exact pence
+        RegularAmount amountTestValue14 = new RegularAmount();
+        amountTestValue14.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
+        amountTestValue14.setAmount("33.33");
+        sampleAmountTestDataset.add(amountTestValue14);
+        
+        // Test value 15 - invalid number (LARGER then 10 char restriction!), and no exact pence
+        RegularAmount amountTestValue15 = new RegularAmount();
+        amountTestValue15.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
+        amountTestValue15.setAmount("999999999.99");
+        sampleAmountTestDataset.add(amountTestValue15);
+        
+        // Test value 16 - valid number (just within 11 char restriction), correct pence
+        RegularAmount amountTestValue16 = new RegularAmount();
+        amountTestValue16.setFrequency(RegularAmount.Frequency.WEEK);
+        amountTestValue16.setAmount("99999999.99");
+        sampleAmountTestDataset.add(amountTestValue16);
 
         return sampleAmountTestDataset;
 
@@ -127,6 +145,7 @@ public class RunAmount
     {
         for(RegularAmount amt : amountDataset)
         {
+            System.out.println("====================="); 
             if(DEBUG)
             { System.out.println("Validating amount... "); }
             // Validate the Bean/class
@@ -136,7 +155,7 @@ public class RunAmount
             Set<ConstraintViolation<RegularAmount>> violations = validator.validate(amt);
 
             if(DEBUG)
-            { System.out.println("Size is: " + violations.size()); }
+            { System.out.println("Violations detected: " + violations.size()); }
 
             if(DEBUG)
             {
@@ -147,15 +166,17 @@ public class RunAmount
                 }
             }
             
-            System.out.println("====================="); 
+
             // Did it pass the ConstraintValidator without any problems? (i.e is it VALID?)
             if(violations.size() == 0)
-            { System.out.println(ANSI_GREEN + "PASSED" + ANSI_RESET); }                
+            { System.out.println(ANSI_GREEN + "PASSED:" + ANSI_RESET); 
+                // NOTE: Aggregate/count valid results to show at the end
+            }                
             else
-            { System.out.println(ANSI_RED + "FAILED" + ANSI_RESET); }
+            { System.out.println(ANSI_RED + "FAILED:" + ANSI_RESET); }
                                       
-            System.out.println("Amount: " + amt.getAmount());
-            System.out.println("Frequency: " + amt.getFrequency());
+            System.out.println("-> Amount: " + amt.getAmount());
+            System.out.println("-> Frequency: " + amt.getFrequency());
 
         }
 
