@@ -13,9 +13,11 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 /**
- * An amazing class that does something.
+ * A driver class used to demonstrate/test/examine the behaviour of 
+ * CheckRegularAmount/CheckRegularAmountValidator classes/JavaBean 
+ * ConstraintValidator.
  *
- * @author aren
+ * @author Aren Tyr
  */
 public class RunAmount
 {
@@ -146,8 +148,10 @@ public class RunAmount
         for(RegularAmount amt : amountDataset)
         {
             System.out.println("====================="); 
+            
             if(DEBUG)
             { System.out.println("Validating amount... "); }
+            
             // Validate the Bean/class
             ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
             Validator validator = factory.getValidator();

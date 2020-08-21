@@ -5,17 +5,24 @@
  */
 package com.aren.nhs_bsa_assignment;
 
-import javax.validation.Constraint;
-import javax.validation.groups.Default;
 import org.hibernate.validator.constraints.Length;
 /**
  *
- * @author aren
+ * @author Aren Tyr.
  */
 
-@CheckRegularAmount //(groups = {Default.class })
+@CheckRegularAmount
 public class RegularAmount
 {
+    public RegularAmount() { }
+    
+    // Provide a handy overloaded constructor for convenience
+    public RegularAmount(String amt, Frequency freq)
+    {
+        this.amount = amt;
+        this.frequency = freq;
+    }
+    
     private Frequency frequency;
     
     // restrict maximum input to 11 digits (characters) for security/safety
