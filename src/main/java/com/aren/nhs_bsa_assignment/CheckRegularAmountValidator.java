@@ -13,7 +13,7 @@ import javax.validation.ConstraintValidatorContext;
 
 /**
  *
- * @author aren
+ * @author Aren Tyr.
  */
 public class CheckRegularAmountValidator implements ConstraintValidator<CheckRegularAmount, RegularAmount>
 {
@@ -28,12 +28,13 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
         return inputAmount.matches("^[0-9]+(\\.\\d{2})?$");
     }
 
+    // DEPRECATED: Replaced with inbuilt BigDecimal object and RoundingMode exception
+    // A more elegant "Java-esque" solution.
+    //
     // All correct currency/exact pence values must have <= 2 decimal points -
     // (e.g. 1p is smallest granularity in UK currency)
     // This function courtesy of StackExchange:
     // https://stackoverflow.com/questions/2296110/determine-number-of-decimal-place-using-bigdecimal
-    // DEPRECATED: Replaced with inbuilt BigDecimal object and RoundingMode exception
-    // A more elegant "Java-esque" solution
     /* 
     private int getNumberOfDecimalPlaces(BigDecimal bigDecimal)
     {
@@ -43,7 +44,6 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
     }
     */
 
-    // FIXME: replace double with BigDecimal?
     private BigDecimal validFrequencyDivisor(Frequency inputFreq)
     {
         switch(inputFreq)
@@ -107,7 +107,7 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
             System.out.println("Double division result is: " + result);
         }
 
-        // DEPRECATED (replaced with BigDecimal)
+        //DEPRECATED (replaced with BigDecimal)
         //BigDecimal checkCurrencyPence = new BigDecimal(val);
         //return getNumberOfDecimalPlaces(checkCurrencyPence)<= 2;
         
@@ -119,9 +119,6 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
     @Override
     public void initialize(CheckRegularAmount constraintAnnotation)
     {
-        //System.out.println("testing init method");
-        //this.regularAmountCheck = constraintAnnotation;
-        //throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

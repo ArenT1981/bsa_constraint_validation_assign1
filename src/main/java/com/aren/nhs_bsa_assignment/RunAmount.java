@@ -22,7 +22,7 @@ import javax.validation.ValidatorFactory;
 public class RunAmount
 {
     // (Global) debugging messages on?
-    public final static boolean DEBUG = true;
+    public final static boolean DEBUG = false;
 
     // Run test dataset?
     private final static boolean RUNTESTS = true;

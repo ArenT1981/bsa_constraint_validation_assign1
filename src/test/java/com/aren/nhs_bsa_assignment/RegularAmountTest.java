@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
  */
 public class RegularAmountTest
 {
-    
+
     private static ValidatorFactory validatorFactory;
     private static Validator validator;
 
@@ -46,30 +46,42 @@ public class RegularAmountTest
     }
 
     protected void setUp() throws Exception
-    { }
+    {
+    }
 
     protected void tearDown() throws Exception
-    { }
-    
+    {
+    }
+
     private boolean runBeanConstraintValidator(RegularAmount ra)
     {
         Set<ConstraintViolation<RegularAmount>> violations = validator.validate(ra);
         if(violations.isEmpty())
+        {
+            System.out.println("-> VALID amount/frequency. \nAmount: " + 
+                    ra.getAmount() + " \nFrequency: " + ra.getFrequency());
             return true;
+        }
         else
-            return false;   
+        {
+            System.out.println("-> INVALID amount/frequency. \nAmount: \"" + 
+                    ra.getAmount() + "\" \nFrequency: " + ra.getFrequency());
+            return false;
+        }
+
     }
 
     /**
      * Test of getFrequency method, of class RegularAmount.
-     * 
+     *
      * Mostly just a test of state, since it is just a simple getter & setter,
      * but here for completeness.
      */
     @Test
     public void testGetAndSetFrequency()
     {
-        System.out.println("Testing getting and setting Frequency...");
+        System.out.println("* Testing getting and setting Frequency...");
+        System.out.println("==========================================");
         RegularAmount instance = new RegularAmount();
         instance.setFrequency(RegularAmount.Frequency.WEEK);
         RegularAmount.Frequency expResult = Frequency.WEEK;
@@ -79,47 +91,51 @@ public class RegularAmountTest
 
     /**
      * Test of getAmount method, of class RegularAmount.
-     * 
+     *
      * Mostly just a test of state, since it is just a simple getter & setter,
      * but here for completeness.
      */
     @Test
     public void testGetAndSetAmount()
     {
-        System.out.println("Testing getting and setting Amount...");
+        System.out.println("* Testing getting and setting Amount...");
+        System.out.println("==========================================");
         RegularAmount instance = new RegularAmount();
         instance.setAmount("100.00");
         String expResult = "100.00";
         String result = instance.getAmount();
         assertEquals(expResult, result);
-        
+
     }
-    
+
     @Test
-    public void correctValuesWholeNumberOfPence() {
-        //given:
+    public void correctValuesWholeNumberOfPence()
+    {
+        System.out.println("* Testing CORRECT input values...");
+        System.out.println("==========================================");
         RegularAmount instance1 = new RegularAmount("100", Frequency.WEEK);
         RegularAmount instance2 = new RegularAmount("400.00", Frequency.FOUR_WEEK);
         assertTrue(runBeanConstraintValidator(instance1));
         assertTrue(runBeanConstraintValidator(instance2));
- 
-        
+
     }
 
     /**
      * Tests the ConstraintValidator against a sequence of invalid inputs.
-     * 
-     * This function tests a sequence of values all of which should
-     * validate as bad/incorrect values (hence the "!" before the return value).
+     *
+     * This function tests a sequence of values all of which should validate as
+     * bad/incorrect values (hence the "!" before the return value).
      */
     @Test
-    public void incorrectValuesNOTWholeNumberOfPence() {
-        //given:
+    public void incorrectValuesNOTWholeNumberOfPence()
+    {
+        System.out.println("Testing INCORRECT input values...");
+        System.out.println("==========================================");
         RegularAmount instance1 = new RegularAmount("bad value", Frequency.WEEK);
         RegularAmount instance2 = new RegularAmount("99.99", Frequency.FOUR_WEEK);
         assertTrue(!runBeanConstraintValidator(instance1));
         assertTrue(!runBeanConstraintValidator(instance2));
-        
+
     }
 
 }
