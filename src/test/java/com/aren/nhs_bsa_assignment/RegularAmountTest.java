@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* RegularAmountTest.java
+ *
+ * See LICENSE.txt in project root directory for license details.
  */
 package com.aren.nhs_bsa_assignment;
 
@@ -22,15 +21,19 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 /**
- *
  * @author Aren Tyr.
+ * @version 0.6 2020-08-22
  */
 public class RegularAmountTest
 {
 
+    // Necessary Bean validators
     private static ValidatorFactory validatorFactory;
     private static Validator validator;
 
+    /**
+     * Specialist constructor to setup a test Bean instance.
+     */
     @BeforeAll
     public static void createValidator()
     {
@@ -39,43 +42,46 @@ public class RegularAmountTest
         validator = validatorFactory.getValidator();
     }
 
+    /**
+     * Deletes/closes the test Bean instance after tests are complete.
+     */
     @AfterAll
     public static void close()
     {
         validatorFactory.close();
     }
 
-    protected void setUp() throws Exception
-    {
-    }
-
-    protected void tearDown() throws Exception
-    {
-    }
-
+    /**
+     * Wrapper method that validates/checks Bean instance for validation errors.
+     *
+     * @param ra A <code>RegularAmount</code> instance to perform
+     * <code>ConstraintValidation</code> on.
+     * @return <code>true</code> if <code>RegularAmount</code> has no validation
+     * errors, <code>false</code> otherwise.
+     */
     private boolean runBeanConstraintValidator(RegularAmount ra)
     {
         Set<ConstraintViolation<RegularAmount>> violations = validator.validate(ra);
         if(violations.isEmpty())
         {
-            System.out.println("-> VALID amount/frequency. \nAmount: " + 
-                    ra.getAmount() + " \nFrequency: " + ra.getFrequency());
+            System.out.println("-> VALID amount/frequency. \nAmount: "
+                    + ra.getAmount() + " \nFrequency: " + ra.getFrequency());
             return true;
         }
         else
         {
-            System.out.println("-> INVALID amount/frequency. \nAmount: \"" + 
-                    ra.getAmount() + "\" \nFrequency: " + ra.getFrequency());
+            System.out.println("-> INVALID amount/frequency. \nAmount: \""
+                    + ra.getAmount() + "\" \nFrequency: " + ra.getFrequency());
             return false;
         }
-
     }
 
     /**
-     * Test of getFrequency method, of class RegularAmount.
+     * JUnit test of <code>setFrequency</code> and <code>getFrequency</code>
+     * methods, of class <code>RegularAmount</code>.
      *
-     * Mostly just a test of state, since it is just a simple getter & setter,
-     * but here for completeness.
+     * Mostly just a test of state, since it is just a simple getter &amp;
+     * setter, but here for completeness.
      */
     @Test
     public void testGetAndSetFrequency()
@@ -90,10 +96,11 @@ public class RegularAmountTest
     }
 
     /**
-     * Test of getAmount method, of class RegularAmount.
+     * JUnit test of <code>setFrequency</code> and <code>getFrequency</code>
+     * methods, of class <code>RegularAmount</code>.
      *
-     * Mostly just a test of state, since it is just a simple getter & setter,
-     * but here for completeness.
+     * Mostly just a test of state, since it is just a simple getter &amp;
+     * setter, but here for completeness.
      */
     @Test
     public void testGetAndSetAmount()
@@ -105,9 +112,13 @@ public class RegularAmountTest
         String expResult = "100.00";
         String result = instance.getAmount();
         assertEquals(expResult, result);
-
     }
 
+    /**
+     * JUnit test that tests the <code>ConstraintValidator</code> class across a
+     * series of correct inputs to see that is is validating/accepting as
+     * expected.
+     */
     @Test
     public void correctValuesWholeNumberOfPence()
     {
@@ -117,11 +128,11 @@ public class RegularAmountTest
         RegularAmount instance2 = new RegularAmount("400.00", Frequency.FOUR_WEEK);
         assertTrue(runBeanConstraintValidator(instance1));
         assertTrue(runBeanConstraintValidator(instance2));
-
     }
 
     /**
-     * Tests the ConstraintValidator against a sequence of invalid inputs.
+     * JUnit test that tests the <code>ConstraintValidator</code> class across a
+     * series of incorrect inputs to see that is is rejecting as expected.
      *
      * This function tests a sequence of values all of which should validate as
      * bad/incorrect values (hence the "!" before the return value).
@@ -135,7 +146,6 @@ public class RegularAmountTest
         RegularAmount instance2 = new RegularAmount("99.99", Frequency.FOUR_WEEK);
         assertTrue(!runBeanConstraintValidator(instance1));
         assertTrue(!runBeanConstraintValidator(instance2));
-
     }
 
 }

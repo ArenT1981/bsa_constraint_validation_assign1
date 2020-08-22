@@ -1,0 +1,1 @@
+See LICENSE.txt in project root directory for license details.
