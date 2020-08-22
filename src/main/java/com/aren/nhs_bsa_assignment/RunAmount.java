@@ -18,6 +18,7 @@ import javax.validation.ValidatorFactory;
  * ConstraintValidator.
  *
  * @author Aren Tyr
+ * @version 0.6 - 2020-08-22
  */
 public class RunAmount
 {
@@ -205,6 +206,9 @@ public class RunAmount
             if(DEBUG)
             { System.out.println("Tests are not enabled."); }
         }
+        
+        CheckRegularAmountValidator foo = new CheckRegularAmountValidator();
+        System.out.println("foo");
     }
 
 }

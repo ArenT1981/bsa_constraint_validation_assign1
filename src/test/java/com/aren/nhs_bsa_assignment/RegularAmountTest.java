@@ -21,6 +21,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 
 /**
+ * JUnit test class for <code>RegularAmount.java</code>.
+ * 
  * @author Aren Tyr.
  * @version 0.6 2020-08-22
  */
@@ -55,9 +57,10 @@ public class RegularAmountTest
      * Wrapper method that validates/checks Bean instance for validation errors.
      *
      * @param ra A <code>RegularAmount</code> instance to perform
-     * <code>ConstraintValidation</code> on.
+     *        <code>ConstraintValidation</code> on.
+     * 
      * @return <code>true</code> if <code>RegularAmount</code> has no validation
-     * errors, <code>false</code> otherwise.
+     *         errors, <code>false</code> otherwise.
      */
     private boolean runBeanConstraintValidator(RegularAmount ra)
     {
