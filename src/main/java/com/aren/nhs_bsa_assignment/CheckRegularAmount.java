@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* CheckRegularAmount.java
+ *
+ * See LICENSE.txt in project root directory for license details.
  */
 package com.aren.nhs_bsa_assignment;
 
@@ -15,7 +14,17 @@ import javax.validation.Payload;
 
 /**
  *
- * @author aren
+ * @author Aren Tyr
+ * @version 0.6 - 2020-08-22
+ * 
+ * <code>ConstraintValidator</code> annotation interface that calls 
+ * <code>CheckRegularAmountValidator</code>.
+ * 
+ * Primarily targeted at a class level through <code>ElementType.TYPE</code>, 
+ * since our validation is dependent on the result of both <code>amount</code> 
+ * and <code>frequency</code> in combination. Body of the interface is standard
+ * defaults.
+ * 
  */
 @Documented
 @Constraint(validatedBy = CheckRegularAmountValidator.class)
@@ -26,8 +35,7 @@ import javax.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CheckRegularAmount
 {
-
-    String message() default "Validation error detected."; //{com.aren.nhs_bsa_assignment.RegularAmount}";
+    String message() default "Validation error detected.";
 
     Class<?>[] groups() default 
     {

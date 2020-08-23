@@ -1,4 +1,4 @@
-/* RegularAmountTest.java
+/* CheckRegularAmountValidator.java
  *
  * See LICENSE.txt in project root directory for license details.
  */
@@ -131,8 +131,6 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
      */   
     private boolean isValidExactPenceAmount(String amt, BigDecimal divisor)
     {
-
-
         BigDecimal numerator = new BigDecimal(amt);
         BigDecimal result = new BigDecimal("-9999.9999");
         

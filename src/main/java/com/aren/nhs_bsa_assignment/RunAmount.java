@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* RunAmount.java
+ *
+ * See LICENSE.txt in project root directory for license details.
  */
 package com.aren.nhs_bsa_assignment;
 
@@ -22,14 +21,25 @@ import javax.validation.ValidatorFactory;
  */
 public class RunAmount
 {
-    // (Global) debugging messages on?
+    /**
+     * Acts as a global debugging message switch (other classes reference it).
+     */
     public final static boolean DEBUG = false;
 
-    // Run test dataset?
+    /**
+     * Acts as a switch to run through and display the explicit test/demo values 
+     * used as part of the development process. 
+     */
     private final static boolean RUNTESTS = true;
     
-    // Some bling. Fancy console output colours (works under Unix)
-    // https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println
+    /** 
+     * Some bling/aesthetic touches for console output. 
+     * Fancy console output colours (works under Unix, should work on a Mac terminal,
+     * untested under Windows but should work with recent builds undre Windows 10).
+     * 
+     * @see <a href="https://stackoverflow.com/questions/5762491/how-to-print-color-in-console-using-system-out-println">
+     *      StackExchange thread</a>.
+     */
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -40,6 +50,17 @@ public class RunAmount
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
     
+    
+    /**
+     * Internal development/test dataset. Since the validation class is mostly an 
+     * "invisible" entity that does the back-end work behind the scenes, this at 
+     * least gives us some output for sanity checking that the code is working as 
+     * expected.
+     * 
+     * @return An array containing a series of <code>RegularAmount</code> objects
+     * with <code>amount</code> and <code>Frequency</code> values to pass to the 
+     * validator class.
+     */
     private ArrayList<RegularAmount> getSampleAmountDataset()
     {
         ArrayList<RegularAmount> sampleAmountTestDataset = new ArrayList<>();
@@ -141,9 +162,15 @@ public class RunAmount
         sampleAmountTestDataset.add(amountTestValue16);
 
         return sampleAmountTestDataset;
-
     }
 
+    /**
+     * Internal method that takes in an array of <code>RegularAmount</code> objects 
+     * and performs validation on them, displaying any violation messages.
+     * 
+     * @param amountDataset an <code>ArrayList</code> of <code>RegularAmount</code>
+     * objects to validate.
+     */
     private void validateSampleAmounts(ArrayList<RegularAmount> amountDataset)
     {
         for(RegularAmount amt : amountDataset)
@@ -171,7 +198,6 @@ public class RunAmount
                 }
             }
             
-
             // Did it pass the ConstraintValidator without any problems? (i.e is it VALID?)
             if(violations.size() == 0)
             { System.out.println(ANSI_GREEN + "PASSED:" + ANSI_RESET); 
@@ -188,8 +214,9 @@ public class RunAmount
     }
 
     /**
-     *
-     * @param args do something
+     * Main entry point.
+     * 
+     * @param args Not currently used.
      */
     public static void main(String args[])
     {
@@ -206,9 +233,5 @@ public class RunAmount
             if(DEBUG)
             { System.out.println("Tests are not enabled."); }
         }
-        
-        CheckRegularAmountValidator foo = new CheckRegularAmountValidator();
-        System.out.println("foo");
     }
-
 }

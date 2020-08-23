@@ -125,10 +125,64 @@ public class RegularAmountTest
     @Test
     public void correctValuesWholeNumberOfPence()
     {
-        System.out.println("* Testing CORRECT input values...");
+        System.out.println("* Testing CORRECT input values (-> VALIDATION = \"Is Valid\"...");
         System.out.println("==========================================");
-        RegularAmount instance1 = new RegularAmount("100", Frequency.WEEK);
-        RegularAmount instance2 = new RegularAmount("400.00", Frequency.FOUR_WEEK);
+        // 1. Test WEEK - Any valid currency amount (below max @length) should validate
+        RegularAmount instance1  = new RegularAmount("0.01", Frequency.WEEK);
+        RegularAmount instance2  = new RegularAmount("0.09", Frequency.WEEK);
+        RegularAmount instance3  = new RegularAmount("1", Frequency.WEEK);
+        RegularAmount instance4  = new RegularAmount("9", Frequency.WEEK);
+        RegularAmount instance5  = new RegularAmount("400.00", Frequency.WEEK);
+        RegularAmount instance6  = new RegularAmount("1000.00", Frequency.WEEK);
+        RegularAmount instance7  = new RegularAmount("9999.99", Frequency.WEEK);
+        // Edge cases, 11 digits:
+        RegularAmount instance8  = new RegularAmount("12312312.12", Frequency.WEEK);
+        RegularAmount instance9  = new RegularAmount("77777777777", Frequency.WEEK);
+
+        // 2. Test TWO_WEEK - Obviously need to be a modulus 2 zero remainder value
+        RegularAmount instance10 = new RegularAmount("0.02", Frequency.TWO_WEEK);
+        RegularAmount instance11 = new RegularAmount("2", Frequency.TWO_WEEK);
+        RegularAmount instance12 = new RegularAmount("200.00", Frequency.TWO_WEEK);
+        RegularAmount instance13 = new RegularAmount("400.00", Frequency.TWO_WEEK);
+        RegularAmount instance14 = new RegularAmount("4444.44", Frequency.TWO_WEEK);
+        //Edge cases, 11 digits
+        RegularAmount instance15 = new RegularAmount("88888888888", Frequency.TWO_WEEK);
+        RegularAmount instance16 = new RegularAmount("22222222.22", Frequency.TWO_WEEK);
+
+        // 3. Test FOUR_WEEK - Mod 4 zero remainder
+        RegularAmount instance17 = new RegularAmount("0.04", Frequency.FOUR_WEEK);
+        RegularAmount instance18 = new RegularAmount("4", Frequency.FOUR_WEEK);
+        RegularAmount instance19 = new RegularAmount("400.00", Frequency.FOUR_WEEK);
+        RegularAmount instance20 = new RegularAmount("12000.00", Frequency.FOUR_WEEK);
+        // Edge cases, 11 digits
+        RegularAmount instance21 = new RegularAmount("88888888.88", Frequency.FOUR_WEEK);
+        RegularAmount instance22 = new RegularAmount("44444444444", Frequency.FOUR_WEEK);
+        
+        // 4. Test QUARTER - Mod 13 zero remainder
+        RegularAmount instance23 = new RegularAmount("0.13", Frequency.QUARTER);
+        RegularAmount instance24 = new RegularAmount("13", Frequency.QUARTER);
+        RegularAmount instance25 = new RegularAmount("260.00", Frequency.QUARTER);
+        RegularAmount instance26 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance27 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance28 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance29 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance30 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance31 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance32 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance33 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance34 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance35 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance36 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance37 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance38 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance39 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance40 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance41 = new RegularAmount("44444444444", Frequency.QUARTER);
+        RegularAmount instance42 = new RegularAmount("44444444444", Frequency.QUARTER);
+        
+
+
+
         assertTrue(runBeanConstraintValidator(instance1));
         assertTrue(runBeanConstraintValidator(instance2));
     }
