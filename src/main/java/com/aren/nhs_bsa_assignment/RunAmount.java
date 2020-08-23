@@ -167,6 +167,10 @@ public class RunAmount
         amountTestValue17.setAmount("0");
         sampleAmountTestDataset.add(amountTestValue17);
 
+        // Test value 18 - test empty constructor, should fail
+        RegularAmount amountTestValue18 = new RegularAmount();
+        sampleAmountTestDataset.add(amountTestValue18);
+        
         return sampleAmountTestDataset;
     }
 
@@ -230,9 +234,9 @@ public class RunAmount
         {
             if(DEBUG)
             { System.out.println("Initialising tests..."); }
-
+            
             RunAmount testDataset = new RunAmount();
-            testDataset.validateSampleAmounts(testDataset.getSampleAmountDataset());
+            testDataset.validateSampleAmounts(testDataset.getSampleAmountDataset());           
         } 
         else
         {

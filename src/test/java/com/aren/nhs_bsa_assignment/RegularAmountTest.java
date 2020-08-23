@@ -137,7 +137,7 @@ public class RegularAmountTest
     {
         if(VERBOSE)
         {
-            System.out.println("* Testing CORRECT input values (-> VALIDATION = \"Is Valid\"...");
+            System.out.println("* Testing CORRECT input values (-> VALIDATION = \"Is Valid\"...)");
             System.out.println("==========================================");
         }
         // 1. Test WEEK - Any valid currency amount (below max @length) should validate
@@ -238,7 +238,7 @@ public class RegularAmountTest
     {
         if(VERBOSE)
         {
-            System.out.println("Testing INCORRECT input values...(-> VALIDATION = \"Is NOT Valid\"...");
+            System.out.println("Testing INCORRECT input values...(-> VALIDATION = \"Is NOT Valid\"...)");
             System.out.println("==========================================");
         }
 
@@ -316,6 +316,9 @@ public class RegularAmountTest
         RegularAmount instance50 = new RegularAmount("10.00", Frequency.MONTH);
         RegularAmount instance51 = new RegularAmount("200", Frequency.MONTH);
         RegularAmount instance52 = new RegularAmount("500000.00", Frequency.MONTH);
+        
+        // Finally test empty instance (default constructor)
+        RegularAmount instance53 = new RegularAmount();
 
         assertTrue(!runBeanConstraintValidator(instance1));
         assertTrue(!runBeanConstraintValidator(instance2));
@@ -369,5 +372,6 @@ public class RegularAmountTest
         assertTrue(!runBeanConstraintValidator(instance50));
         assertTrue(!runBeanConstraintValidator(instance51));
         assertTrue(!runBeanConstraintValidator(instance52));
+        assertTrue(!runBeanConstraintValidator(instance53));
     }
 }

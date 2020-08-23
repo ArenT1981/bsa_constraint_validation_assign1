@@ -17,9 +17,12 @@ public class RegularAmount
 {
 
     /**
-     *
+     * Setup default values (that will guarantee to fail validation).
      */
-    public RegularAmount() { }
+    public RegularAmount() 
+    { 
+        this("-1.00", RegularAmount.Frequency.WEEK);
+    }
     
     /** 
      * An overloaded constructor for convenience, to setup <code>amount</code>
