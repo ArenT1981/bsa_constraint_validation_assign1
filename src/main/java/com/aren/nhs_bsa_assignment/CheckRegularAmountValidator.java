@@ -98,6 +98,7 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
             case FOUR_WEEK:
                 return new BigDecimal("4.00");
             case MONTH:
+                // We will stipulate as INVALID "MONTH" since != any specific number of weeks...
                 return new BigDecimal("-1.00");
             case QUARTER:
                 return new BigDecimal("13.00");
@@ -149,7 +150,12 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
                 // Use RoundingMode.UNNECESSARY to throw ArithmeticException if _any_ rounding 
                 // occurs outside of the scale of two decimal points
                 result = numerator.divide(divisor, 2, RoundingMode.UNNECESSARY);
-            } 
+            }
+            else
+            { 
+                // Important for edge case of amount = 0 (BigDecimal does not throw an exception dividing by 0)
+                return false; 
+            }
         }
         catch(ArithmeticException ae)
         {

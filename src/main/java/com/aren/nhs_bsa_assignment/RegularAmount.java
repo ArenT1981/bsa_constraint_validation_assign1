@@ -6,7 +6,6 @@ package com.aren.nhs_bsa_assignment;
 
 import org.hibernate.validator.constraints.Length;
 
-
 /**
  * Based on the supplied template class with a few modifications/additions.
  * 

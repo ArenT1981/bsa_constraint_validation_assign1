@@ -160,6 +160,12 @@ public class RunAmount
         amountTestValue16.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue16.setAmount("99999999.99");
         sampleAmountTestDataset.add(amountTestValue16);
+        
+        // Test value 17 - valid number (just within 11 char restriction), correct pence
+        RegularAmount amountTestValue17 = new RegularAmount();
+        amountTestValue17.setFrequency(RegularAmount.Frequency.WEEK);
+        amountTestValue17.setAmount("0");
+        sampleAmountTestDataset.add(amountTestValue17);
 
         return sampleAmountTestDataset;
     }

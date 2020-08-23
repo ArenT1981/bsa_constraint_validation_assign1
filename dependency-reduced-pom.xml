@@ -19,6 +19,7 @@
           </execution>
         </executions>
         <configuration>
+          <show>private</show>
           <source>8</source>
         </configuration>
       </plugin>
