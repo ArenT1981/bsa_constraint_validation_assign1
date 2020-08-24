@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
  * JUnit test class for <code>RegularAmount.java</code>.
  *
  * @author Aren Tyr.
- * @version 0.6 2020-08-22
+ * @version 0.9 2020-08-24
  */
 public class RegularAmountTest
 {
@@ -241,7 +241,7 @@ public class RegularAmountTest
             System.out.println("Testing INCORRECT input values...(-> VALIDATION = \"Is NOT Valid\"...)");
             System.out.println("==========================================");
         }
-
+       
         // 1. Test WEEK - Since division by 1, only other constraint violations are possible
         // Too big/too many characters:
         RegularAmount instance1  = new RegularAmount("1234567891234567890.01", Frequency.WEEK);
@@ -372,6 +372,7 @@ public class RegularAmountTest
         assertTrue(!runBeanConstraintValidator(instance50));
         assertTrue(!runBeanConstraintValidator(instance51));
         assertTrue(!runBeanConstraintValidator(instance52));
+
         assertTrue(!runBeanConstraintValidator(instance53));
     }
 }

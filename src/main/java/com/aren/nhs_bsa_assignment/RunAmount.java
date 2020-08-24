@@ -27,7 +27,7 @@ public class RunAmount
     /**
      * Acts as a global debugging message switch (other classes reference it).
      */
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
 
     /**
      * Acts as a switch to run through and display the explicit test/demo values
@@ -254,7 +254,7 @@ public class RunAmount
 
     }
 
-    private static void printFrequencyChoiceMenu()
+    protected static void printFrequencyChoiceMenu()
     {
         System.out.println("Please enter frequency number [1-6], where frequency is one of:");
         System.out.println("[1] - WEEK");
@@ -269,7 +269,7 @@ public class RunAmount
 
     }
 
-    private static void runValidation(String inputAmount, String frequencyChoice)
+    protected static void runValidation(String inputAmount, String frequencyChoice)
     {
 
         RegularAmount amount;
@@ -324,7 +324,7 @@ public class RunAmount
     {
         String inputAmount;
         String frequencyChoice;
-        
+
         System.out.println("");
         System.out.println("INTERACTIVE MODE");
         System.out.println("");
@@ -355,15 +355,43 @@ public class RunAmount
         System.out.println("\"1\" : Run validator in interactive mode.");
         System.out.println("\"2\" : Interactive mode, verbose messaging");
         System.out.println("\"3\" : Run validator on example test values.");
-        System.out.println("\"4\" : Example test values, verbose messagaging.");
+        System.out.println("\"4\" : Example test values, verbose messaging.");
     }
 
     private static void runTests()
     {
-        //RunAmount testDataset = new RunAmount();
-        //testDataset.validateSampleAmounts(testDataset.getSampleAmountDataset());
         validateSampleAmounts(getSampleAmountDataset());
+    }
 
+    private static void parseChoice(String option)
+    {       
+        switch(option)
+        {
+
+            case "1":
+                setDEBUG(false);
+                interactiveMode();
+                break;
+            case "2":
+                interactiveMode();
+                break;
+            case "3":
+                setDEBUG(false);
+                setRUNTESTS(true);
+                runTests();
+                break;
+            case "4":
+                setRUNTESTS(true);
+                System.out.println("Initialising tests...");
+                runTests();
+                break;
+            default:
+                printUsage();
+                break;
+
+        }
+
+        //return true;
     }
 
     /**
@@ -375,31 +403,7 @@ public class RunAmount
     {
         if(args.length == 1)
         {
-            switch(args[0])
-            {
-
-                case "1":
-                    interactiveMode();
-                    break;
-                case "2":
-                    setDEBUG(true);
-                    interactiveMode();
-                    break;
-                case "3":
-                    setRUNTESTS(true);
-                    runTests();
-                    break;
-                case "4":
-                    setRUNTESTS(true);
-                    setDEBUG(true);
-                    System.out.println("Initialising tests...");
-                    runTests();
-                    break;
-                default:
-                    printUsage();
-                    break;
-
-            }
+            parseChoice(args[0]);
         }
         else
         {
