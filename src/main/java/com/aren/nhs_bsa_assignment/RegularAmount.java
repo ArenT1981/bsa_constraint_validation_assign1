@@ -10,14 +10,14 @@ import org.hibernate.validator.constraints.Length;
  * Based on the supplied template class with a few modifications/additions.
  * 
  * @author Aren Tyr
- * @version 0.8 - 2020-08-22
+ * @version 1.0 - 2020-08-24
  */
 @CheckRegularAmount
 public class RegularAmount
 {
 
     /**
-     * Setup default values (that will guarantee to fail validation).
+     * Setup default values (that usefully will guarantee to fail validation).
      */
     public RegularAmount() 
     { 
@@ -42,8 +42,12 @@ public class RegularAmount
     
     private Frequency frequency;
     
-    // Restrict maximum input to 11 digits (characters) for security/safety.
-    // This allows maximum values up to £99999999999 or £99999999.99 theoretically...!
+    /** 
+     * Use @Length annotation to restrict maximum input to 11 digits (characters) 
+     * for security/safety.
+     * 
+     * This allows maximum values up to £99999999999 or £99999999.99 theoretically...!
+     */
     @Length(max=11,message="* Bad input. Greater than 11 characters.")
     private String amount; 
     
@@ -87,10 +91,5 @@ public class RegularAmount
      * Acts as the divisor mapping value for determining whether an exact pence
      * amount is possible or not.
      */
-    public enum Frequency { 
-
-        /**
-         *
-         */
-        WEEK, TWO_WEEK, FOUR_WEEK, MONTH, QUARTER, YEAR; };
+    public enum Frequency { WEEK, TWO_WEEK, FOUR_WEEK, MONTH, QUARTER, YEAR; };
 }

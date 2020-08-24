@@ -19,7 +19,7 @@ import javax.validation.ValidatorFactory;
  * ConstraintValidator.
  *
  * @author Aren Tyr
- * @version 0.8 - 2020-08-22
+ * @version 0.9 - 2020-08-25
  */
 public class RunAmount
 {
@@ -35,21 +35,43 @@ public class RunAmount
      */
     private static boolean RUNTESTS = false;
 
+    /**
+     * Get the current status of the debugging/verbose output switch.
+     * 
+     * @return Boolean value indicating debugging/output status. 
+     */
     public static boolean isDEBUG()
     {
         return DEBUG;
     }
 
+    /**
+     * Set the current status of the debugging/verbose output switch.
+     * 
+     * @param DEBUG Boolean value to set debugging status (default value is 
+     *        <code>true</code>/on.
+     */
     public static void setDEBUG(boolean DEBUG)
     {
         RunAmount.DEBUG = DEBUG;
     }
 
+    /**
+     * Get the current status of the sample test data set/example validation run.
+     * 
+     * @return Boolean value indicating whether to run a series of demonstration tests. 
+     */
     public static boolean isRUNTESTS()
     {
         return RUNTESTS;
     }
 
+    /**
+     * Set the current status of the demonstration tests.
+     * 
+     * @param RUNTESTS Boolean value indicating whether to run demonstration tests.
+     *        Default value is <code>false</code>.
+     */
     public static void setRUNTESTS(boolean RUNTESTS)
     {
         RunAmount.RUNTESTS = RUNTESTS;
@@ -75,10 +97,10 @@ public class RunAmount
     public static final String ANSI_WHITE = "\u001B[37m";
 
     /**
-     * Internal development/test dataset. Since the validation class is mostly
+     * Internal development/test/demo dataset. Since the validation class is mostly
      * an "invisible" entity that does the back-end work behind the scenes, this
      * at least gives us some output for sanity checking that the code is
-     * working as expected.
+     * working as expected, or serve as a demonstration output to show it working.
      *
      * @return An array containing a series of <code>RegularAmount</code>
      * objects with <code>amount</code> and <code>Frequency</code> values to
@@ -254,6 +276,11 @@ public class RunAmount
 
     }
 
+    /**
+     * Internal method that displays an information menu of options to choose from.
+     * 
+     * Used for when running the program in interactive command line mode.
+     */
     private static void printFrequencyChoiceMenu()
     {
         System.out.println("Please enter frequency number [1-6], where frequency is one of:");
@@ -269,11 +296,20 @@ public class RunAmount
 
     }
 
+    /**
+     * Internal method (though accessible within the package) for validating a 
+     * given amount and frequency.
+     * 
+     * @param inputAmount A String representing the currency value (e.g. "75.00").
+     * 
+     * @param frequencyChoice A RegularAmount.Frequency enum value.
+     */
     protected static void runValidation(String inputAmount, String frequencyChoice)
     {
 
         RegularAmount amount;
 
+        // Protection against any dumb inputs
         if(inputAmount == null)
         {
             inputAmount = "-1.00";
@@ -307,7 +343,7 @@ public class RunAmount
             default:
                 amount = new RegularAmount(inputAmount, RegularAmount.Frequency.WEEK);
                 frequencyChoice = "0";
-                System.out.println("Quitting application...");
+                System.out.println("Quitting application.");
                 break;
         }
 
@@ -320,7 +356,13 @@ public class RunAmount
 
     }
 
-    protected static void interactiveMode()
+    /**
+     * Internal method that provides a keyboard prompt/input to interactively run
+     * any number of validation tests on a given input of amount and frequency.
+     * 
+     * User triggers program exit by selecting "0" as choice for frequency.
+     */
+    private static void interactiveMode()
     {
         String inputAmount;
         String frequencyChoice;
@@ -344,10 +386,16 @@ public class RunAmount
         }
         while(!frequencyChoice.equals("0"));
         
+        // Clean up input stream
         keyboard.close();
-
     }
 
+    /**
+     * Internal method that simply prompts an instructional usage method to the terminal.
+     * 
+     * Used to indicate the command line option to pass to the program to trigger
+     * the desired mode/behaviour.
+     */
     private static void printUsage()
     {
         System.out.println("");
@@ -362,6 +410,9 @@ public class RunAmount
         System.out.println("\"4\" : Example test values, verbose messaging.");
     }
 
+    /**
+     * Internal wrapper method to run any desired demonstration tests/example dataset.
+     */
     private static void runTests()
     {
         validateSampleAmounts(getSampleAmountDataset());
@@ -401,7 +452,10 @@ public class RunAmount
     /**
      * Main entry point.
      *
-     * @param args Specify operation mode.
+     * @param args Specify the operation mode. 
+     * 
+     * Takes a single numerical argument (String) from 1-4. Any other value 
+     * displays a usage message before exiting.
      */
     public static void main(String args[])
     {

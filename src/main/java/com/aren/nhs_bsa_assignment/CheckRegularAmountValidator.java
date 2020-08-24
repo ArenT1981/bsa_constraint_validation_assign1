@@ -5,22 +5,25 @@
 package com.aren.nhs_bsa_assignment;
 
 import com.aren.nhs_bsa_assignment.RegularAmount.Frequency;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
  * Java Bean validator class that implements <code>ConstraintValidator</code>.
  * 
- * Responsible for ensuring that all <code>amount</code> values are validated as valid if
- * they divide into an exact number of pence, based on their weekly frequency value,
- * or are validated as invalid otherwise.
+ * Responsible for ensuring that all <code>amount</code> values are validated as 
+ * valid if they divide into an exact number of pence, based on their weekly 
+ * frequency value, or are validated as invalid otherwise.
  * 
  * @author Aren Tyr.
- * @version 0.8 - 2020-08-22
+ * @version 1.0 - 2020-08-25
  */
-public class CheckRegularAmountValidator implements ConstraintValidator<CheckRegularAmount, RegularAmount>
+public class CheckRegularAmountValidator implements 
+        ConstraintValidator<CheckRegularAmount, RegularAmount>
 {
 
     /**
@@ -98,10 +101,12 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
             case FOUR_WEEK:
                 return new BigDecimal("4.00");
             case MONTH:
-                // We will stipulate as INVALID "MONTH" since != any specific number of weeks...
+                // We will stipulate as INVALID "MONTH" since != 
+                // any specific number of weeks...
                 if(DEBUG)
                 {
-                    System.out.println("MONTH value requested, MONTH does not define a WEEKLY amount.");
+                    System.out.println("MONTH value requested, MONTH does not "
+                            + "define a WEEKLY amount.");
                 }
                 return new BigDecimal("-1.00");
             case QUARTER:
@@ -149,15 +154,17 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
         // 1 (i.e. the negative "default" case)
         try
         {
-            if(numerator.compareTo(new BigDecimal("0")) > 0 && divisor.compareTo(new BigDecimal("1")) >= 0)
+            if(numerator.compareTo(new BigDecimal("0")) > 0 
+                    && divisor.compareTo(new BigDecimal("1")) >= 0)
             {
-                // Use RoundingMode.UNNECESSARY to throw ArithmeticException if _any_ rounding 
-                // occurs outside of the scale of two decimal points
+                // Use RoundingMode.UNNECESSARY to throw ArithmeticException if 
+                //_any_ rounding occurs outside of the scale of two decimal points
                 result = numerator.divide(divisor, 2, RoundingMode.UNNECESSARY);
             }
             else
             { 
-                // Important for edge case of amount = 0 (BigDecimal does not throw an exception dividing by 0)
+                // Important for edge case of amount = 0 (BigDecimal does not 
+                // throw an exception dividing by 0)
                 return false; 
             }
         }
@@ -165,7 +172,8 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
         {
             if(DEBUG)
             {
-                System.out.println("Non-exact division within requested scale (two decimal places): " + ae);
+                System.out.println("Non-exact division within requested scale" 
+                        + "(two decimal places): " + ae);
             }
             return false;
         }
@@ -224,13 +232,13 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
             }
 
             boolean validPenceAmount = isValidExactPenceAmount(amt, frequencyCheck);
+            
             if(validPenceAmount)
             {
                 if(DEBUG)
                 {
                     System.out.println("VALID/EXACT Amount registered");
                 }
-
                 return true;
             }
             else
@@ -239,7 +247,6 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
                 {
                     System.out.println("INVALID/NON-EXACT pence Amount registered");
                 }
-
                 return false;
             }
         }
@@ -247,9 +254,9 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
         {
             if(DEBUG)
             {
-                System.out.println("Invalid Number format -> no possibility of exact pence: " + amt);
+                System.out.println("Invalid Number format -> no possibility "
+                        + "of exact pence: " + amt);
             }
-
             return false;
         }
     }

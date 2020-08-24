@@ -9,19 +9,20 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
 /**
  *
  * @author Aren Tyr
- * @version 0.6 - 2020-08-22
+ * @version 1.0 - 2020-08-22
  * 
  * <code>ConstraintValidator</code> annotation interface that calls 
  * <code>CheckRegularAmountValidator</code>.
  * 
  * Primarily targeted at a class level through <code>ElementType.TYPE</code>, 
- * since our validation is dependent on the result of both <code>amount</code> 
+ * since the validation is dependent on the result of both <code>amount</code> 
  * and <code>frequency</code> in combination. Body of the interface is standard
  * defaults.
  * 

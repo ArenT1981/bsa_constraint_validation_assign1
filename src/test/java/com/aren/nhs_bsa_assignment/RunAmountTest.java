@@ -11,17 +11,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 /**
- * JUnit test class for <code>RegularAmount.java</code>.
+ * JUnit test class for <code>RunAmount.java</code>.
  *
  * @author Aren Tyr.
  * @version 0.9 2020-08-24
  */
 public class RunAmountTest
 {
-
-
     /** 
      * Test default constructor.
+     * 
+     * Here for code coverage.
      */
     @Test
     public void testEmptyConstructor()
@@ -126,11 +126,11 @@ public class RunAmountTest
     public void testrunValidation()
     {
         RunAmount.runValidation(null, null);
-        RunAmount.runValidation("10.00", "1");
-        RunAmount.runValidation("10.00", "2");
-        RunAmount.runValidation("10.00", "3");
-        RunAmount.runValidation("10.00", "4");
-        RunAmount.runValidation("10.00", "5");
+        RunAmount.runValidation("60.00", "1");
+        RunAmount.runValidation("50.00", "2");
+        RunAmount.runValidation("40.00", "3");
+        RunAmount.runValidation("30.00", "4");
+        RunAmount.runValidation("20.00", "5");
         RunAmount.runValidation("10.00", "6");
     }
 
