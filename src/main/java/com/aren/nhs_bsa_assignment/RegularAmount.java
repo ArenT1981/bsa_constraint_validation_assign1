@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.Length;
  * Based on the supplied template class with a few modifications/additions.
  * 
  * @author Aren Tyr
- * @version 0.6 - 2020-08-22
+ * @version 0.8 - 2020-08-22
  */
 @CheckRegularAmount
 public class RegularAmount

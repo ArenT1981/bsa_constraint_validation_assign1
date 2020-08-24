@@ -18,7 +18,7 @@ import javax.validation.ConstraintValidatorContext;
  * or are validated as invalid otherwise.
  * 
  * @author Aren Tyr.
- * @version 0.6 - 2020-08-22
+ * @version 0.8 - 2020-08-22
  */
 public class CheckRegularAmountValidator implements ConstraintValidator<CheckRegularAmount, RegularAmount>
 {
@@ -99,6 +99,10 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
                 return new BigDecimal("4.00");
             case MONTH:
                 // We will stipulate as INVALID "MONTH" since != any specific number of weeks...
+                if(DEBUG)
+                {
+                    System.out.println("MONTH value requested, MONTH does not define a WEEKLY amount.");
+                }
                 return new BigDecimal("-1.00");
             case QUARTER:
                 return new BigDecimal("13.00");
@@ -168,7 +172,7 @@ public class CheckRegularAmountValidator implements ConstraintValidator<CheckReg
 
         if(DEBUG)
         {
-            System.out.println("Double division result is: " + result);
+            System.out.println("BigDecimal division result is: " + result);
         }
 
         //DEPRECATED (replaced with BigDecimal)
