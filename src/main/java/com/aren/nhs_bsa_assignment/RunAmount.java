@@ -19,7 +19,7 @@ import javax.validation.ValidatorFactory;
  * ConstraintValidator.
  *
  * @author Aren Tyr
- * @version 0.7 - 2020-08-22
+ * @version 0.8 - 2020-08-22
  */
 public class RunAmount
 {
@@ -254,7 +254,7 @@ public class RunAmount
 
     }
 
-    protected static void printFrequencyChoiceMenu()
+    private static void printFrequencyChoiceMenu()
     {
         System.out.println("Please enter frequency number [1-6], where frequency is one of:");
         System.out.println("[1] - WEEK");
@@ -320,7 +320,7 @@ public class RunAmount
 
     }
 
-    private static void interactiveMode()
+    protected static void interactiveMode()
     {
         String inputAmount;
         String frequencyChoice;
@@ -328,11 +328,13 @@ public class RunAmount
         System.out.println("");
         System.out.println("INTERACTIVE MODE");
         System.out.println("");
+        
+        Scanner keyboard = new Scanner(System.in);
 
         // Keep getting user input until they enter 0 for Frequency to quit application
         do
         {
-            Scanner keyboard = new Scanner(System.in);
+            
             System.out.println("Please enter the currency amount: ");
             System.out.print("> ");
             inputAmount = keyboard.nextLine();
@@ -341,6 +343,8 @@ public class RunAmount
             runValidation(inputAmount, frequencyChoice);
         }
         while(!frequencyChoice.equals("0"));
+        
+        keyboard.close();
 
     }
 
