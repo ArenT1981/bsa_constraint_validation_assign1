@@ -110,112 +110,186 @@ public class RunAmount
     {
         ArrayList<RegularAmount> sampleAmountTestDataset = new ArrayList<>();
 
-        // Test value 1 - valid number
+        // Demo value 1 - valid number
         RegularAmount amountTestValue1 = new RegularAmount();
         amountTestValue1.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue1.setAmount("100.00");
         sampleAmountTestDataset.add(amountTestValue1);
 
-        // Test value 2 - valid number
+        // Demo value 2 - valid number
         RegularAmount amountTestValue2 = new RegularAmount();
         amountTestValue2.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue2.setAmount("100000");
         sampleAmountTestDataset.add(amountTestValue2);
 
-        // Test value 3 - invalid number (only one digit after decimal point)
+        // Demo value 3 - invalid number (only one digit after decimal point)
         RegularAmount amountTestValue3 = new RegularAmount();
         amountTestValue3.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue3.setAmount("100.0");
         sampleAmountTestDataset.add(amountTestValue3);
 
-        // Test value 4 - invalid number (contains a non-digit character)
+        // Demo value 4 - invalid number (contains a non-digit character)
         RegularAmount amountTestValue4 = new RegularAmount();
         amountTestValue4.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue4.setAmount("10f0.00");
         sampleAmountTestDataset.add(amountTestValue4);
 
-        // Test value 5 - invalid number (contains a non-digit character)
+        // Demo value 5 - invalid number (contains a non-digit character)
         RegularAmount amountTestValue5 = new RegularAmount();
         amountTestValue5.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue5.setAmount("100.0a");
         sampleAmountTestDataset.add(amountTestValue5);
 
-        // Test value 6 - invalid number (negative value)
+        // Demo value 6 - invalid number (negative value)
         RegularAmount amountTestValue6 = new RegularAmount();
         amountTestValue6.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue6.setAmount("-100.00");
         sampleAmountTestDataset.add(amountTestValue6);
 
-        // Test value 7 - invalid number (all characters)
+        // Demo value 7 - invalid number (all characters)
         RegularAmount amountTestValue7 = new RegularAmount();
         amountTestValue7.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue7.setAmount("hello");
         sampleAmountTestDataset.add(amountTestValue7);
 
-        // Test value 8 - invalid number (contains character)
+        // Demo value 8 - invalid number (contains character)
         RegularAmount amountTestValue8 = new RegularAmount();
         amountTestValue8.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue8.setAmount("10hello");
         sampleAmountTestDataset.add(amountTestValue8);
 
-        // Test value 9 - invalid number (empty string)
+        // Demo value 9 - invalid number (empty string)
         RegularAmount amountTestValue9 = new RegularAmount();
         amountTestValue9.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue9.setAmount("");
         sampleAmountTestDataset.add(amountTestValue9);
 
-        // Test value 10 - invalid number (special character)
+        // Demo value 10 - invalid number (special character)
         RegularAmount amountTestValue10 = new RegularAmount();
         amountTestValue10.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue10.setAmount("*");
         sampleAmountTestDataset.add(amountTestValue10);
 
-        // Test value 11 - valid number (TWO_WEEK), correct pence
+        // Demo value 11 - valid number (TWO_WEEK), correct pence
         RegularAmount amountTestValue11 = new RegularAmount();
         amountTestValue11.setFrequency(RegularAmount.Frequency.TWO_WEEK);
         amountTestValue11.setAmount("100.00");
         sampleAmountTestDataset.add(amountTestValue11);
 
-        // Test value 12 - valid number (FOUR_WEEK), correct pence
+        // Demo value 12 - valid number (FOUR_WEEK), correct pence
         RegularAmount amountTestValue12 = new RegularAmount();
         amountTestValue12.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
         amountTestValue12.setAmount("100000");
         sampleAmountTestDataset.add(amountTestValue12);
 
-        // Test value 13 - valid number (FOUR_WEEK), no exact pence
+        // Demo value 13 - valid number (FOUR_WEEK), no exact pence
         RegularAmount amountTestValue13 = new RegularAmount();
         amountTestValue13.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
         amountTestValue13.setAmount("99.99");
         sampleAmountTestDataset.add(amountTestValue13);
 
-        // Test value 14 - valid number (FOUR_WEEK), no exact pence
+        // Demo value 14 - valid number (FOUR_WEEK), no exact pence
         RegularAmount amountTestValue14 = new RegularAmount();
         amountTestValue14.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
         amountTestValue14.setAmount("33.33");
         sampleAmountTestDataset.add(amountTestValue14);
 
-        // Test value 15 - invalid number (LARGER then 10 char restriction!), and no exact pence
+        // Demo value 15 - invalid number (LARGER then 11 char restriction!), and no exact pence
         RegularAmount amountTestValue15 = new RegularAmount();
         amountTestValue15.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
         amountTestValue15.setAmount("999999999.99");
         sampleAmountTestDataset.add(amountTestValue15);
 
-        // Test value 16 - valid number (just within 11 char restriction), correct pence
+        // Demo value 16 - valid number (just within 11 char restriction), correct pence
         RegularAmount amountTestValue16 = new RegularAmount();
         amountTestValue16.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue16.setAmount("99999999.99");
         sampleAmountTestDataset.add(amountTestValue16);
 
-        // Test value 17 - valid number (just within 11 char restriction), correct pence
+        // Demo value 17 - invalid number, zero not dividable
         RegularAmount amountTestValue17 = new RegularAmount();
         amountTestValue17.setFrequency(RegularAmount.Frequency.WEEK);
         amountTestValue17.setAmount("0");
         sampleAmountTestDataset.add(amountTestValue17);
 
-        // Test value 18 - test empty constructor, should fail
+        // Demo value 18 - test empty constructor, will fail validation
         RegularAmount amountTestValue18 = new RegularAmount();
         sampleAmountTestDataset.add(amountTestValue18);
 
+        // ------
+        
+        // Demo value 19 - valid number, correct pence
+        RegularAmount amountTestValue19 = new RegularAmount();
+        amountTestValue19.setFrequency(RegularAmount.Frequency.TWO_WEEK);
+        amountTestValue19.setAmount("888.50");
+        sampleAmountTestDataset.add(amountTestValue19);
+        
+        // Demo value 20 - valid number, correct pence
+        RegularAmount amountTestValue20 = new RegularAmount();
+        amountTestValue20.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
+        amountTestValue20.setAmount("0.08");
+        sampleAmountTestDataset.add(amountTestValue20);
+        
+        // Demo value 21 - valid number, correct pence
+        RegularAmount amountTestValue21 = new RegularAmount();
+        amountTestValue21.setFrequency(RegularAmount.Frequency.TWO_WEEK);
+        amountTestValue21.setAmount("5000");
+        sampleAmountTestDataset.add(amountTestValue21);
+        
+        // Demo value 22 - valid number, correct pence
+        RegularAmount amountTestValue22 = new RegularAmount();
+        amountTestValue22.setFrequency(RegularAmount.Frequency.QUARTER);
+        amountTestValue22.setAmount("130");
+        sampleAmountTestDataset.add(amountTestValue22);
+        
+        // Demo value 23 - valid number, correct pence
+        RegularAmount amountTestValue23 = new RegularAmount();
+        amountTestValue23.setFrequency(RegularAmount.Frequency.YEAR);
+        amountTestValue23.setAmount("2958.28");
+        sampleAmountTestDataset.add(amountTestValue23);
+        
+        // Demo value 24 - valid number, correct pence
+        RegularAmount amountTestValue24 = new RegularAmount();
+        amountTestValue24.setFrequency(RegularAmount.Frequency.QUARTER);
+        amountTestValue24.setAmount("2.21");
+        sampleAmountTestDataset.add(amountTestValue24);
+                
+        // Demo value 25 - valid number, correct pence
+        RegularAmount amountTestValue25 = new RegularAmount();
+        amountTestValue25.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
+        amountTestValue25.setAmount("177929.08");
+        sampleAmountTestDataset.add(amountTestValue25);
+        
+        // Demo value 26 - valid number, correct pence
+        RegularAmount amountTestValue26 = new RegularAmount();
+        amountTestValue26.setFrequency(RegularAmount.Frequency.QUARTER);
+        amountTestValue26.setAmount("1153407.58");
+        sampleAmountTestDataset.add(amountTestValue26);
+        
+        // Demo value 27 - invalid number (huge input way beyond 11 char restriction)
+        RegularAmount amountTestValue27 = new RegularAmount();
+        amountTestValue27.setFrequency(RegularAmount.Frequency.FOUR_WEEK);
+        amountTestValue27.setAmount("8349758937458972398457982374589234759723947374");
+        sampleAmountTestDataset.add(amountTestValue27);
+        
+        // Demo value 28 - invalid number, "MONTH" does NOT represent a valid weekly divisor
+        RegularAmount amountTestValue28 = new RegularAmount();
+        amountTestValue28.setFrequency(RegularAmount.Frequency.MONTH);
+        amountTestValue28.setAmount("40.00");
+        sampleAmountTestDataset.add(amountTestValue28);
+        
+        // Demo value 29 - valid number (just within 11 char restriction), correct pence
+        RegularAmount amountTestValue29 = new RegularAmount();
+        amountTestValue29.setFrequency(RegularAmount.Frequency.YEAR);
+        amountTestValue29.setAmount("36329663.24");
+        sampleAmountTestDataset.add(amountTestValue29);
+        
+        // Demo value 30 - invalid number, no correct pence
+        RegularAmount amountTestValue30 = new RegularAmount();
+        amountTestValue30.setFrequency(RegularAmount.Frequency.TWO_WEEK);
+        amountTestValue30.setAmount("1000000.01");
+        sampleAmountTestDataset.add(amountTestValue30);
+        
         return sampleAmountTestDataset;
     }
 
@@ -406,8 +480,8 @@ public class RunAmount
         System.out.println("Where ARG (without quotes) is one of: ");
         System.out.println("\"1\" : Run validator in interactive mode.");
         System.out.println("\"2\" : Interactive mode, verbose messaging");
-        System.out.println("\"3\" : Run validator on example test values.");
-        System.out.println("\"4\" : Example test values, verbose messaging.");
+        System.out.println("\"3\" : Run validator on demo test values.");
+        System.out.println("\"4\" : Demo test values, verbose messaging.");
     }
 
     /**
