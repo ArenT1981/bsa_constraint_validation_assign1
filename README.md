@@ -94,7 +94,7 @@ The following is provided/has been produced:
 
 ![](./assets/img/rel_jacoco.png)
 
-5. Development documentation (this file): [**nhs-assign1-doc-v1.0.pdf**](https://github.com/ArenT1981/bsa_constraint_validation_assign1/raw/master/assets/v1.0/nhs-assign1-doc-v1.0.pdf).
+5. Development documentation (LaTeX/PDF): [**nhs-assign1-doc-v1.0.pdf**](https://github.com/ArenT1981/bsa_constraint_validation_assign1/raw/master/assets/v1.0/nhs-assign1-doc-v1.0.pdf).
 
 <a name="requirementsengineering"></a>
 
