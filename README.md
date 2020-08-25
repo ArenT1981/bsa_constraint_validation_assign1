@@ -11,7 +11,7 @@
 5.2.2\.  [Null Frequency](#nullfrequency)  
 5.2.3\.  [Weekly](#weekly)  
 5.2.4\.  [Monthly](#monthly)  
-5.3\.  [Acceptance Criteria (Validation as valid or invalid Amount)](#acceptancecriteriavalidationasvalidorinvalidamount)  
+5.3\.  [Acceptance Criteria ("validation as valid"/"validation as invalid")](#acceptancecriteria"validationasvalid"/"validationasinvalid")  
 5.3.1\.  [Validated as valid](#validatedasvalid)  
 5.3.2\.  [Validated as invalid](#validatedasinvalid)  
 5.4\.  [Missing/Undefined Acceptance Criteria](#missing/undefinedacceptancecriteria)  
@@ -61,12 +61,16 @@ Note that the documentation zip file includes the folllowing:
 
 The following is provided/has been produced:
 
-1. Full source code, with a build based around Maven (`pom.xml`). VCS using `git` with commit history.
-2. Full `Javadoc` documentation across all classes.
+1. [Full source code](https://github.com/ArenT1981/bsa_constraint_validation_assign1/tree/master/src), with a build based around Maven (`pom.xml`). VCS using `git` with [commit history](https://github.com/ArenT1981/bsa_constraint_validation_assign1/commits/master).
+![](./assets/img/rel_git.png)
+2. Full `Javadoc` documentation across all classes: [**nhs-assign1-javadoc-v1.0.zip**](./assets/v1.0/nhs-assign1-javadoc-v1.0.zip).
+![](./assets/img/rel_javadoc.png)
 3. Full unit testing using `JUnit`.
-4. Code coverage analysis using `JaCoCo`.
-5. Development documentation (`PDF` + `README.md`).
-
+![](./assets/img/rel_junit.png)
+4. Code coverage analysis/report using `JaCoCo`: [**nhs-assign1-jacoco-v1.0.zip**](./assets/v1.0/nhs-assign1-jacoco-v1.0.zip).
+![](./assets/img/rel_jacoco.png)
+5. Development documentation: [**nhs-assign1-Aren-Tyr-v1.0.pdf**](./assets/v1.0/nhs-assign1-Aren-Tyr-v1.0.pdf).
+![](./assets/img/rel_pdf.png)
 
 <a name="requirementsengineering"></a>
 
@@ -162,9 +166,9 @@ As per **Weekly** above. Note, however, that a MONTH is deeply problematical in 
 
 Therefore, as a mathematical/numerical entity, a "month" is a problem, and therefore any usage or non-usage needs to be qualified by whatever particular set of constraints/design decisions we impose on the software. Which decisions we make regarding it are dependent on our intended outcome/usage for the system; i.e. they are particular to the specifics of the usage context.
 
-<a name="acceptancecriteriavalidationasvalidorinvalidamount"></a>
+<a name="acceptancecriteria"validationasvalid"/"validationasinvalid""></a>
 
-## 5.3\. Acceptance Criteria (Validation as valid or invalid Amount)
+## 5.3\. Acceptance Criteria ("validation as valid"/"validation as invalid")
 
 <a name="validatedasvalid"></a>
 

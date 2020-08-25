@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * JUnit test class for <code>RegularAmount.java</code>.
  *
  * @author Aren Tyr.
- * @version 0.9 2020-08-24
+ * @version 1.0 2020-08-24
  */
 public class RegularAmountTest
 {

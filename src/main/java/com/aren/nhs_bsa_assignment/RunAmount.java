@@ -19,7 +19,7 @@ import javax.validation.ValidatorFactory;
  * ConstraintValidator.
  *
  * @author Aren Tyr
- * @version 0.9 - 2020-08-25
+ * @version 1.0 - 2020-08-25
  */
 public class RunAmount
 {
