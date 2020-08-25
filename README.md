@@ -26,6 +26,9 @@
 7.1\.  [JUnit Tests](#junittests)  
 7.2\.  [`JaCoCo` Code Coverage Analysis](#`jacoco`codecoverageanalysis)  
 8\.  [Usage](#usage)  
+9\.  [Build/Compile](#build/compile)  
+10\.  [Issues](#issues)  
+11\.  [License](#license)  
 
 <a name="metadata"></a>
 
@@ -63,12 +66,16 @@ The following is provided/has been produced:
 
 1. [Full source code](https://github.com/ArenT1981/bsa_constraint_validation_assign1/tree/master/src), with a build based around Maven (`pom.xml`). VCS using `git` with [commit history](https://github.com/ArenT1981/bsa_constraint_validation_assign1/commits/master).
 ![](./assets/img/rel_git.png)
-2. Full `Javadoc` documentation across all classes: [**nhs-assign1-javadoc-v1.0.zip**](./assets/v1.0/nhs-assign1-javadoc-v1.0.zip).
+
+2. Full `Javadoc` documentation across all classes: [**nhs-assign1-javadoc-v1.0.zip**](https://github.com/ArenT1981/bsa_constraint_validation_assign1/raw/master/assets/v1.0/nhs-assign1-javadoc-v1.0.zip).
 ![](./assets/img/rel_javadoc.png)
+
 3. Full unit testing using `JUnit`.
 ![](./assets/img/rel_junit.png)
-4. Code coverage analysis/report using `JaCoCo`: [**nhs-assign1-jacoco-v1.0.zip**](./assets/v1.0/nhs-assign1-jacoco-v1.0.zip).
+
+4. Code coverage analysis/report using `JaCoCo`: [**nhs-assign1-jacoco-v1.0.zip**](https://github.com/ArenT1981/bsa_constraint_validation_assign1/raw/master/assets/v1.0/nhs-assign1-jacoco-report-v1.0.zip).
 ![](./assets/img/rel_jacoco.png)
+
 5. Development documentation: [**nhs-assign1-Aren-Tyr-v1.0.pdf**](./assets/v1.0/nhs-assign1-Aren-Tyr-v1.0.pdf).
 ![](./assets/img/rel_pdf.png)
 
@@ -489,3 +496,37 @@ So then just run it with the desired operation mode by specifying the command li
 The interactive mode allow you to interactively type in values and specify the desired frequency, and get the validation result. To exit, enter "0" when prompted for the frequency.
 
 Demo mode, as the name suggests, simply runs it across some hard-coded `RegularAmount` amounts to validate.
+
+<a name="build/compile"></a>
+
+# 9\. Build/Compile
+
+If you wish to build from source after cloning this repository, do so in usual manner using [Apache Maven](https://maven.apache.org/): 
+
+`mvn clean install`
+
+Output "fat" `JAR` file with all dependencies built-in will be at `./target/NHS_BSA_Assignment-1.0-SNAPSHOT.jar`.
+
+<a name="issues"></a>
+
+# 10\. Issues
+
+**Q: What is with all the strange symbols on the output text when displaying results?**  
+
+If you are attempting to run the program under Windows 10, and are seeing something like the following:  
+
+![](./assets/img/windows-bad-term.png)
+
+Please upgrade your Windows terminal to a modern version/terminal that actually supports ANSI color codes. Microsoft themselves provide a state-of-the-art GPU accelerated terminal, available via the Windows Store [here](https://www.microsoft.com/en-gb/p/windows-terminal/9n0dx20hk701?rtc=1&activetab=pivot:overviewtab#), or via their GitHub project page [here](https://github.com/microsoft/terminal). This is the result after installing the new (official Microsoft) Windows Terminal, approximately a 7MB download:
+
+![](./assets/img/windows-good-term.png)
+
+Linux users should be unaffected by this as just about all terminals support ANSI colour codes out of the box and have done for the last 20+ years. MacOS users should also have no issue, though I do not have access to a recent MacOS system to test this.
+
+<a name="license"></a>
+
+# 11\. License
+
+AGPL-3.0. See [LICENSE.txt](./LICENSE.txt) for details.
+
+
