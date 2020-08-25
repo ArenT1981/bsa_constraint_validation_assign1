@@ -1,17 +1,50 @@
 # NHS BSA Assignment 1
 
-# Metadata
+1\.  [Metadata](#metadata)  
+2\.  [Synopsis](#synopsis)  
+3\.  [Download/Files](#download/files)  
+4\.  [Release](#release)  
+5\.  [Requirements Engineering](#requirementsengineering)  
+5.1\.  [Terms (Frequency & Amount)](#termsfrequency&amount)  
+5.2\.  [Acceptance Criteria (Defined Parameters in isolation)](#acceptancecriteriadefinedparametersinisolation)  
+5.2.1\.  [Invalid Amount](#invalidamount)  
+5.2.2\.  [Null Frequency](#nullfrequency)  
+5.2.3\.  [Weekly](#weekly)  
+5.2.4\.  [Monthly](#monthly)  
+5.3\.  [Acceptance Criteria (Validation as valid or invalid Amount)](#acceptancecriteriavalidationasvalidorinvalidamount)  
+5.3.1\.  [Validated as valid](#validatedasvalid)  
+5.3.2\.  [Validated as invalid](#validatedasinvalid)  
+5.4\.  [Missing/Undefined Acceptance Criteria](#missing/undefinedacceptancecriteria)  
+5.4.1\.  [Missing Term definitions](#missingtermdefinitions)  
+5.4.2\.  [Missing/Incomplete Validation criteria (Design Choices)](#missing/incompletevalidationcriteriadesignchoices)  
+6\.  [Implementation Notes](#implementationnotes)  
+6.1\.  [Currency Verification](#currencyverification)  
+6.2\.  [Frequency Enumeration Mapping](#frequencyenumerationmapping)  
+6.3\.  [Exact Pence Calcuation](#exactpencecalcuation)  
+6.4\.  [`RegularAmount` class](#`regularamount`class)  
+7\.  [Testing](#testing)  
+7.1\.  [JUnit Tests](#junittests)  
+7.2\.  [`JaCoCo` Code Coverage Analysis](#`jacoco`codecoverageanalysis)  
+8\.  [Usage](#usage)  
+
+<a name="metadata"></a>
+
+# 1\. Metadata
 
 - **Document Revision:** 2020-08-25
 - **Document Version:** 1.0.0
 - **Software Revision:** 2020-08-25
 - **Software Version:** 1.0.0
 
-# Synopsis
+<a name="synopsis"></a>
 
-This project invovled creating a JSR-303 Java Bean annotation and an associated `ConstraintValidator` class, for the purposes of determining currency payments that yield exactly divisible pence amounts (i.e. a scale of two, two decimal points, representing UK currency pence Sterling).
+# 2\. Synopsis
 
-# Download/Files
+This project invovled creating a JSR-303 Java Bean annotation and an associated `ConstraintValidator` class, for the purposes of determining currency payments that yield exactly divisible pence amounts (i.e. a scale of two, two decimal points, representing UK currency pence sterling).
+
+<a name="download/files"></a>
+
+# 3\. Download/Files
 
 1. Download an executable "fat" JAR of the project here: NHS(FIXME).
 2. Download the full project documentation here: foo.zip (FIXME).
@@ -22,7 +55,9 @@ Note that the documentation zip file includes the folllowing:
 * `JaCaCo` - code coverage report
 * Development Documentation PDF - variant on the contents of the `README.md` on the `git` repository.
 
-# Release
+<a name="release"></a>
+
+# 4\. Release
 
 The following is provided/has been produced:
 
@@ -30,14 +65,18 @@ The following is provided/has been produced:
 2. Full `Javadoc` documentation across all classes.
 3. Full unit testing using `JUnit`.
 4. Code coverage analysis using `JaCoCo`.
-5. Development documentation (PDF + README.md).
+5. Development documentation (`PDF` + `README.md`).
 
 
-# Requirements Engineering
+<a name="requirementsengineering"></a>
+
+# 5\. Requirements Engineering
 
 The first remark to be made here is that neither acceptance criteria for the defined/individual parameters/data types, nor the acceptance criteria for the "validation as valid"/"validation as invalid", represents a complete or unambiguous set of design constraints. Both are incomplete, and therefore requires making particular judgement/interpretations as to how to "interpolate" the undefined/missing criteria. More than one such interpretation is possible, and arguably several equally defensible intepretations exist. The most important consideration is that whichever interpretation is made, is that it represents a logically defensible choice, and moreover that it can be implemented in a coherent/consistent manner across the code with clearly understood software behaviours.
 
-## Terms (Frequency & Amount)
+<a name="termsfrequency&amount"></a>
+
+## 5.1\. Terms (Frequency & Amount)
 
 1. "A regular amount consists of a frequency and amount."
 2. "A frequency defines a regular interval at which a payment is made or income received."
@@ -47,14 +86,19 @@ The first remark to be made here is that neither acceptance criteria for the def
     - `FOUR_WEEK` = `4`
     - `MONTH` = ?
     - `QUARTER` = `13`
-    - `YEAR` = `52`  
+    - `YEAR` = `52`
+
 4."An amount contains a value of pounds and pence entered as a String with an optional decimal point."
 
 The actual numerical mappings for these Frequency enumerated types is specified in the "Validated as valid" and "Validated as invalid" definitions later. For clarity, however, we are stating them here. Note that both `WEEK` and `MONTH` are undefined, hence why they are indicated with question marks here.
 
-## Acceptance Criteria (Defined Parameters in isolation)
+<a name="acceptancecriteriadefinedparametersinisolation"></a>
 
-### Invalid Amount
+## 5.2\. Acceptance Criteria (Defined Parameters in isolation)
+
+<a name="invalidamount"></a>
+
+### 5.2.1\. Invalid Amount
 
 **Criteria:**  
 
@@ -68,7 +112,9 @@ THEN no validation error
 
 Under most circumstances we would typically want to filter our blank or non-numeric values with an annotation over the member variable, since we can immediately identify them as invalid, however (presumably by design), such a straightforward approach is denied here, since we must allow these to get passed onto the validation logic within the validator class.
 
-### Null Frequency
+<a name="nullfrequency"></a>
+
+### 5.2.2\. Null Frequency
 
 **Criteria:**  
 
@@ -82,7 +128,9 @@ THEN no validation error
 
 As per "Invalid Amount" above, we can not simply restrict the acceptable `enum` values with a simple annotation over the member variable.
 
-### Weekly
+<a name="weekly"></a>
+
+### 5.2.3\. Weekly
 
 **Criteria:**  
 
@@ -96,7 +144,9 @@ THEN no validation error
 
 Once again, any given Amount (regardless of whether it constitutes a valid numerical currency amount) and the `WEEK` Frequency will pass through to the next stage of validation.
 
-### Monthly
+<a name="monthly"></a>
+
+### 5.2.4\. Monthly
 
 **Criteria:**  
 
@@ -112,9 +162,13 @@ As per **Weekly** above. Note, however, that a MONTH is deeply problematical in 
 
 Therefore, as a mathematical/numerical entity, a "month" is a problem, and therefore any usage or non-usage needs to be qualified by whatever particular set of constraints/design decisions we impose on the software. Which decisions we make regarding it are dependent on our intended outcome/usage for the system; i.e. they are particular to the specifics of the usage context.
 
-## Acceptance Criteria (Validation as valid or invalid Amount)
+<a name="acceptancecriteriavalidationasvalidorinvalidamount"></a>
 
-### Validated as valid
+## 5.3\. Acceptance Criteria (Validation as valid or invalid Amount)
+
+<a name="validatedasvalid"></a>
+
+### 5.3.1\. Validated as valid
 
 **Criteria:**
 
@@ -131,7 +185,9 @@ The Frequency enumerated type is mapped to an associated Number that acts as the
 
 This criteria builds upon the constraints elaborated as "Defined Parameters" above, which as previously alluded to, are incomplete. These missing constraints will be discussed below. Here, we can note that for the listed frequencies (`TWO_WEEK`, `FOUR_WEEK`, `QUARTER`, `YEAR`), they all map unmbigously to a given numerical value and can be implmented without issue as per the Amount requirement of a whole number of pence.
 
-### Validated as invalid
+<a name="validatedasinvalid"></a>
+
+### 5.3.2\. Validated as invalid
 
 **Criteria:**
 
@@ -146,11 +202,15 @@ THEN a validation error is produced
 
 This is effectively the inverse of the above: i.e. given the same input constraints, if the amount does not exactly divide into an exact weekly amount of pence, we therefore validate it as "invalid".
 
-## Missing/Undefined Acceptance Criteria
+<a name="missing/undefinedacceptancecriteria"></a>
+
+## 5.4\. Missing/Undefined Acceptance Criteria
 
 Clearly the acceptance criteria are incomplete, as indicated above. This is a combination of undefined/missing terms, and insufficiently specified criteria (edge cases). In order to implement working code, however, specific choices/decisions need to be made regarding these omissions. These shall now be adumbrated, together with their rationale.
 
-### Missing Term definitions
+<a name="missingtermdefinitions"></a>
+
+### 5.4.1\. Missing Term definitions
 
 Neither `WEEK` nor `MONTH` is explicitly defined. The following choices were made:
 
@@ -166,22 +226,33 @@ None of these approaches is particularly satisfactory. Using "4" means that most
 
 Since no specific criteria was specified, the deliberate design choice made here was simply to reject it as yielding a valid weekly amount. In the code, therefore, by design, it later maps to -1 and as a result subsequently causes the amount to be "validated as invalid". Note that a `MONTH` frequency, as a type, is accepted *per se*, in accordance with the requirements; it only subsequently yields an **invalid amount** ("validated as invalid").
 
-### Missing/Incomplete Validation criteria (Design Choices)
+<a name="missing/incompletevalidationcriteriadesignchoices"></a>
+
+### 5.4.2\. Missing/Incomplete Validation criteria (Design Choices)
 
 1. `WEEK` is entirely missing as either "validated as valid" or "validated as invalid", much as it is missing as an explicitly defined term (see above). However, since we have chosen to map it to the value 1 (see above), it seems consistent to also allow its validation determination based on the **result of this division by 1**. The result, naturally, is largely tautological, since any value divided by one is just itself; in practice it will therefore always cause a valid currency value to validate as valid, subject to no violations of any other constraints (see below).
+
 2. The term definition: 
 
 "An amount contains a value of pounds and pence entered as a String with an optional decimal point."
 
-is underspecified/under-determined. A sensible interpretation would accept that both "100" and "100.00" meet this definition. But what of "100.", or "100.1"? Here, the choice was made to be fairly strict: if a pence amount is specified in the string, it must be fully qualified in accordance to our conventional way of representing currency values in prices/on display. Therefore, "400" is acceptable, since it would universally be interpreted as "£400" (or, being pedantic, "£400.00"). Similarly for a value such as "550.80". Contrariwise, "550.8", or "550." are by design, here not accepted. Whilst we could reasonably interpret "550.8" as £550.80, or "550." as £550.00, the fact is either of these representations would be considered, at best, a sloppy representation of a UK Sterling currency value, or, at worst, entirely wrong (after all, suppose "550.8" masks a rounding of "550.83"; therefore it should actually be stated as "550.83", not simply "550.8".
+is underspecified/under-determined. A sensible interpretation would accept that both "100" and "100.00" meet this definition. But what of "100.", or "100.1"? Here, the choice was made to be fairly strict: if a pence amount is specified in the string, it must be fully qualified in accordance to our conventional way of representing currency values in prices/on display. Therefore, "400" is acceptable, since it would universally be interpreted as "£400" (or, being pedantic, "£400.00"). Similarly for a value such as "550.80". Contrariwise, "550.8", or "550." are by design, here not accepted. Whilst we could reasonably interpret "550.8" as £550.80, or "550." as £550.00, the fact is either of these representations would be considered, at best, a sloppy representation of a UK sterling currency value, or, at worst, entirely wrong (after all, suppose "550.8" masks a rounding of "550.83"; therefore it should actually be stated as "550.83", not simply "550.8".
+
 3. `MONTH` as discussed above is not an unambiguous weekly divisor. Therefore, in the code, it will always subsequently "validate as invalid". So, for example, an Amount of £40.00 over a `MONTH` frequency will therefore be "invalid", even though some might conventionally want to interpret that as equating to a weekly amount of £10.00. This is by design.
+
 4. Technically neither a `QUARTER` nor `YEAR` are strictly either 13 weeks or 52 weeks exactly, since a year itself is not precisely 365 days. Such a level of discrimination will be bypassed here, however, by following the specified criteria of 13 and 52. In general usage our conventional calendar is "close enough", even allowing for some variability due to its inexact division into whole units. Only in the case of a `MONTH` is there a significant deviation, hence why it was deliberately rejected here; 31 days is quite a significant deviation from 28 as a divisor.
+
 5. An Amount of `0` (or `0.00` if you prefer) is an undefined/an edge case. Do we validate it as valid after acceptance? Since it is meaningless (at least in our context here, and computationally, for that matter) to attempt to divide by zero, it is therefore rejected during the validation algorithm and will always "validate as invalid". Similary for negative values (though one could make a legimate argument on the basis of it effectively showing a weekly amount owed, rather than an amount to be paid).
+
 6. No constraint is put upon the the maxima (or minima, for that matter) input Amount. Allowing an unconstrained input amount is a potential security risk at worst, or otherwise a bad implementation choice, since there are clear limits on the extent of currency amounts we would legitimately be interested in calculating. The system should not therefore accept an Amount value that has, say, 250,000 *digits*, since it clearly does not represent any sane currency payment. Indeed, the limit was set at 11 characters in total (since the input is a String), which is still exceptionally generous, as it would allow currency payments of (at worst) "99999999.99" or (at best) "99999999999". So values up to £99,999,999.99 if specified with pence, i.e. 99 million pounds. 11 characters seemed a sensible limit. So this particular limit is enforced by a `@Length` annotation on the Amount member variable.
 
-# Implementation Notes
+<a name="implementationnotes"></a>
 
-## Currency Verification
+# 6\. Implementation Notes
+
+<a name="currencyverification"></a>
+
+## 6.1\. Currency Verification
 
 The verification/acceptance of sane currency values (as per our term defintion above; see point *2.* in the previous section) is accomplished through the application of a regular expression that pattern matches the Amount String. This method returns a boolean flag that indicates whether the value is a sane/acceptable representation of a currency:
 
@@ -196,7 +267,9 @@ private boolean isValidNumericAmount(String inputAmount)
 
 Here the optional second pattern matching group, if present, must have *precisely* two further digits after a point ".". This allows us to accept "300" or "300.30", but not "300.", "300.3", "300.300", "300.30000"... etc.
 
-## Frequency Enumeration Mapping
+<a name="frequencyenumerationmapping"></a>
+
+## 6.2\. Frequency Enumeration Mapping
 
 The `Frequency` is mapped to a divisor/denominator value through a simple `switch` expression:
 
@@ -232,7 +305,9 @@ private BigDecimal validFrequencyDivisor(Frequency inputFreq)
 
 Note the deliberate mapping of `MONTH` to "-1.00" for reasons previously discussed.
 
-## Exact Pence Calcuation
+<a name="exactpencecalcuation"></a>
+
+## 6.3\. Exact Pence Calcuation
 
 We need to exercise care with our underlying data types when making the actual pence determination. Java's in-built `double` type, like any floating point data type, is subject to rounding errors which can lead to unintended/unexpected results. For dealing with numbers where we want exact values, or exercise control over whether and how rounding occurs, we should therefore use Java's specialist `BigDecimal` type/object.
 
@@ -261,7 +336,9 @@ if(numerator.compareTo(new BigDecimal("0")) > 0
 
 The `if` statement is here principally to enforce our desired numerator (an amount > £0.00) and denominator (a frequency < 1.00), since we wish to reject those, and then the real work is done by the `RoundingMode.UNNECESSARY` rounding mode in conjunction with a scale (precision) of 2. That is, any number that requires more than two decimal places to *exactly* represent (i.e. less than a pence), throws an `ArithmeticException` which we can catch and therefore use as the basis for rejecting it as an invalid Amount.
 
-## `RegularAmount` class
+<a name="`regularamount`class"></a>
+
+## 6.4\. `RegularAmount` class
 
 Apart from adding `Javadoc` throughout the class, the only real addition was to use/overload a custom constructor for convenience, and also make sure that we do not have any uninitialised values being passed through to the validator class:
 
@@ -284,9 +361,13 @@ public class RegularAmount
 ...
 ```
 
-# Testing
+<a name="testing"></a>
 
-## JUnit Tests
+# 7\. Testing
+
+<a name="junittests"></a>
+
+## 7.1\. JUnit Tests
 
 Believing it to work and being certain it works are two separate things; therefore the requirement for extensive testing was met by writing full `JUnit` tests for the code, with a large set of test values that try all of the obvious edge cases, awkward values, together, of course, with values that are known to be either good (should validate as valid) or bad (should validate as invalid). `correctValuesWholeNumberOfPence()` tests a large sequence of good values:
 
@@ -363,7 +444,9 @@ public void incorrectValuesNOTWholeNumberOfPence()
 
 Similarly, all of the other methods and code was tested.
 
-## `JaCoCo` Code Coverage Analysis
+<a name="`jacoco`codecoverageanalysis"></a>
+
+## 7.2\. `JaCoCo` Code Coverage Analysis
 
 Using the `JaCaCo` code coverage framework in conjunction with `JUnit` allows us to examine how throughly our `JUnit` tests cover our code. Note that even if you achieve 100% this does **not** mean that your code is automatically guaranteed to either work, or be bug free; it does however mean you have at least subjected it to a range of tests that do indeed exercise the code you have implemented and that it works as you expected it to according to the inputs you subjected it to.
 
@@ -371,7 +454,9 @@ In any case, 99% code coverage was achieved (the missing 1% being an unreachable
 
 ![](./assets/code_coverage.png)
 
-# Usage
+<a name="usage"></a>
+
+# 8\. Usage
 
 The Maven shade plugin is used to produce a single "fat" JAR file with all dependencies bundled within it (which can be directly downloaded here(FIXME), if you would prefer to avoid having to build/compile from source by cloning the repository). Simply run the JAR file:
 
