@@ -11,6 +11,17 @@
 
 This project invovled creating a JSR-303 Java Bean annotation and an associated `ConstraintValidator` class, for the purposes of determining currency payments that yield exactly divisible pence amounts (i.e. a scale of two, two decimal points, representing UK currency pence Sterling).
 
+# Download/Files
+
+1. Download an executable "fat" JAR of the project here: NHS(FIXME).
+2. Download the full project documentation here: foo.zip (FIXME).
+
+Note that the documentation zip file includes the folllowing:
+
+* `Javadoc` - for all source files, including test classes
+* `JaCaCo` - code coverage report
+* Development Documentation PDF - variant on the contents of the `README.md` on the `git` repository.
+
 # Release
 
 The following is provided/has been produced:
@@ -21,16 +32,6 @@ The following is provided/has been produced:
 4. Code coverage analysis using `JaCoCo`.
 5. Development documentation (PDF + README.md).
 
-# Download
-
-1. Download an executable "fat" JAR of the project here: NHS(FIXME).
-2. Download the full project documentation here: foo.zip (FIXME).
-
-Note that the documentation zip file includes the folllowing:
-
-* `Javadoc` - for all source files, including test classes
-* `JaCaCo` - code coverage report
-* Development Documentation PDF - variant on the contents of the README.md on the `git` repository.
 
 # Requirements Engineering
 
@@ -42,11 +43,11 @@ The first remark to be made here is that neither acceptance criteria for the def
 2. "A frequency defines a regular interval at which a payment is made or income received."
 3. "Frequency may be one of:"
     - `WEEK` = ?
-    - `TWO_WEEK` = 2
-    - `FOUR_WEEK` = 4
+    - `TWO_WEEK` = `2`
+    - `FOUR_WEEK` = `4`
     - `MONTH` = ?
-    - `QUARTER` = 13
-    - `YEAR` = 52
+    - `QUARTER` = `13`
+    - `YEAR` = `52`  
 4."An amount contains a value of pounds and pence entered as a String with an optional decimal point."
 
 The actual numerical mappings for these Frequency enumerated types is specified in the "Validated as valid" and "Validated as invalid" definitions later. For clarity, however, we are stating them here. Note that both `WEEK` and `MONTH` are undefined, hence why they are indicated with question marks here.
@@ -65,7 +66,7 @@ THEN no validation error
 
 **Analysis:** 
 
-Under most circumstances we would typically want to filter our blank or non-numeric values with an annotation over the member variable, since we can immediately identify them as invalid, however (presumably by design) such a straightforward approach is denied here, since we must allow these to get passed onto the validation logic within the validator class.
+Under most circumstances we would typically want to filter our blank or non-numeric values with an annotation over the member variable, since we can immediately identify them as invalid, however (presumably by design), such a straightforward approach is denied here, since we must allow these to get passed onto the validation logic within the validator class.
 
 ### Null Frequency
 
@@ -93,7 +94,7 @@ THEN no validation error
 
 **Analysis:**  
 
-Once again, any given Amount (regardless of whether it constitutes a valid numerical currency amount) and the WEEK Frequency will pass through to the next stage of validation.
+Once again, any given Amount (regardless of whether it constitutes a valid numerical currency amount) and the `WEEK` Frequency will pass through to the next stage of validation.
 
 ### Monthly
 
@@ -107,9 +108,9 @@ THEN no validation error
 
 **Analysis:**  
 
-As per **Weekly** above. Note, however, that a MONTH is deeply problematical in terms of its relationship to a WEEK value. For precisely what number of weeks does an actual month represent? Averaged throughout the year, it neither constitutes an exact number of days nor, therefore, a whole ratio of weeks. By convention, a "month" is often taken to represent four weeks, however using this value actually only results in month representing the correct number of weeks for the month of February only, and only then for non-leap years, where it instead has twenty-nine days, which of course is not divisible into four whole weeks of seven days.
+As per **Weekly** above. Note, however, that a MONTH is deeply problematical in terms of its relationship to a WEEK value. For precisely what number of weeks does an actual month represent? Averaged throughout the year, it neither constitutes an exact number of days nor, therefore, a whole ratio of weeks. By convention, a "month" is often taken to represent four weeks; however using this value actually only results in month representing the correct number of weeks for the month of February *only*, and only then for non-leap years, where it instead has twenty-nine days, which of course is not divisible into four whole weeks of seven days.
 
-Therefore, as a mathematical/numerical entity, a "month" is a problem, and therefore any usage or non-usage needs to be qualified by whatever particular set of constraints/design decisions we impose on the software. Which decisions we make regarding it are dependent on our intended outcome/usage for the system; i.e. they are particular to context.
+Therefore, as a mathematical/numerical entity, a "month" is a problem, and therefore any usage or non-usage needs to be qualified by whatever particular set of constraints/design decisions we impose on the software. Which decisions we make regarding it are dependent on our intended outcome/usage for the system; i.e. they are particular to the specifics of the usage context.
 
 ## Acceptance Criteria (Validation as valid or invalid Amount)
 
@@ -128,7 +129,7 @@ THEN no validation error
 
 The Frequency enumerated type is mapped to an associated Number that acts as the divisor/denominator. The Amount is the numerator. The result of this expression, if it yields a whole pence amount (i.e. yields an *exact* value within two decimal places), then is "validated as valid" and no validation error is produced.
 
-This criteria builds upon the constraints elaborated as "Defined Parameters" above, which as previously alluded to, are incomplete. These missing constraints will be discussed below. Here, we can note that for the listed frequencies (TWO_WEEK, FOUR_WEEK, QUARTER, YEAR), they all map unmbigously to a given numerical value and can be implmented without issue as per the Amount requirement of a whole number of pence.
+This criteria builds upon the constraints elaborated as "Defined Parameters" above, which as previously alluded to, are incomplete. These missing constraints will be discussed below. Here, we can note that for the listed frequencies (`TWO_WEEK`, `FOUR_WEEK`, `QUARTER`, `YEAR`), they all map unmbigously to a given numerical value and can be implmented without issue as per the Amount requirement of a whole number of pence.
 
 ### Validated as invalid
 
@@ -155,30 +156,34 @@ Neither `WEEK` nor `MONTH` is explicitly defined. The following choices were mad
 
 1. `WEEK`
 
-A week is not defined, however given that `TWO_WEEK` and `FOUR_WEEK` are defined as mapping to the numerical values 2 and 4 respectively, there seems to be no possible logical objection to defining a `WEEK` as mapping to value 1, as makes intuitive sense.
+A week is not defined; however given that `TWO_WEEK` and `FOUR_WEEK` are defined as mapping to the numerical values 2 and 4 respectively, there seems to be no possible logical objection to defining a `WEEK` as mapping to value 1, as makes intuitive sense.
 
 2. `MONTH`
 
-A month, as discussed previously, has no possibility of mapping to an exact number of weeks, except in the case of February in non-leap years (28 days = 4 weeks). This makes it eminently unusuable as a type that maps to a value, for what value to we map it to, or by what process do we reach a numerical determination for it? Several possible mitigations could be implemented: you could take a rounded numerical average of weeks, and use this as the divisor; you could crudely define it as 4; or you could make a determination based on the exact calendar month/year in consideration, meaning that the exact value is specifically determined by the month in question in the particular year. The final option is just to reject it entirely as a weekly divisor.
+A month, as discussed previously, has no possibility of mapping to an exact number of weeks, except in the case of February in non-leap years (28 days = 4 weeks). This makes it eminently unsuitable as a type that maps to a value, for what value do we map it to, or by what process do we reach a numerical determination for it? Several possible mitigations could be implemented: you could take a rounded numerical average of weeks, and use this as the divisor; you could crudely define it as 4; or you could make a determination based on the exact calendar month/year in consideration, meaning that the exact value is specifically determined by the month in question in the particular year. The final option is just to reject it entirely as a weekly divisor.
 
 None of these approaches is particularly satisfactory. Using "4" means that most of the time it is in fact patently wrong, in terms of weeks represented, though it may be an acceptable approximation, and has the virtue of implementation simplicity. Using the average (365 / 12 = 30.416666...) is not particularly helpful/useful for our particular problem here, since in any case it will almost certainly never result in any exact pence amounts in any case (though in practice, in other systems, such a constraint would not be an issue, since you could simply round up to the next nearest pence, and would therefore provide an extremely useable choice). Finally, implementing based on the exact year/month considerably increases the code complexity. This may be justifiable in some applications/contexts; it would depend upon the real world context that the system is operating in, and the particular behaviour you desire.
 
-Since no specific criteria was specified, the deliberate design choice made here was simply to reject it as yielding a valid weekly amount. In the code, therefore, by design, it later maps to -1 and as a result subsequently causes the amount to be "validated as invalid". Note that a `MONTH` frequency, as a type, is accepted per se, in accordance with the requirements; it only subsequently yields an invalid amount.
+Since no specific criteria was specified, the deliberate design choice made here was simply to reject it as yielding a valid weekly amount. In the code, therefore, by design, it later maps to -1 and as a result subsequently causes the amount to be "validated as invalid". Note that a `MONTH` frequency, as a type, is accepted *per se*, in accordance with the requirements; it only subsequently yields an **invalid amount** ("validated as invalid").
 
 ### Missing/Incomplete Validation criteria (Design Choices)
 
 1. `WEEK` is entirely missing as either "validated as valid" or "validated as invalid", much as it is missing as an explicitly defined term (see above). However, since we have chosen to map it to the value 1 (see above), it seems consistent to also allow its validation determination based on the **result of this division by 1**. The result, naturally, is largely tautological, since any value divided by one is just itself; in practice it will therefore always cause a valid currency value to validate as valid, subject to no violations of any other constraints (see below).
-2. The term definition: "An amount contains a value of pounds and pence entered as a String with an optional decimal point." is underspecified/under-determined. A sensible interpretation would accept that both "100" and "100.00" meet this definition. But what of "100.", or "100.1"? Here, the choice was made to be fairly strict: if a pence amount is specified in the string, it must be fully qualified in accordance to our conventional way of representing currency values in prices/on display. Therefore, "400" is acceptable, since it would universally be interpreted as "£400" (or, being pedantic, "£400.00"). Similarly for a value such as "550.80". "550.8", or "550." are by design, here not accepted. Though we could reasonably interpret "550.8" as £550.80, or "550." as £550.00, the fact is either of these representations would be considered, at best, a sloppy representation of a UK Sterling currency value, or, at worst, entirely wrong (after all, suppose "550.8" masks a rounding of "550.83"; therefore it should actually be stated as "550.83", not simply "550.8".
+2. The term definition: 
+
+"An amount contains a value of pounds and pence entered as a String with an optional decimal point."
+
+is underspecified/under-determined. A sensible interpretation would accept that both "100" and "100.00" meet this definition. But what of "100.", or "100.1"? Here, the choice was made to be fairly strict: if a pence amount is specified in the string, it must be fully qualified in accordance to our conventional way of representing currency values in prices/on display. Therefore, "400" is acceptable, since it would universally be interpreted as "£400" (or, being pedantic, "£400.00"). Similarly for a value such as "550.80". Contrariwise, "550.8", or "550." are by design, here not accepted. Whilst we could reasonably interpret "550.8" as £550.80, or "550." as £550.00, the fact is either of these representations would be considered, at best, a sloppy representation of a UK Sterling currency value, or, at worst, entirely wrong (after all, suppose "550.8" masks a rounding of "550.83"; therefore it should actually be stated as "550.83", not simply "550.8".
 3. `MONTH` as discussed above is not an unambiguous weekly divisor. Therefore, in the code, it will always subsequently "validate as invalid". So, for example, an Amount of £40.00 over a `MONTH` frequency will therefore be "invalid", even though some might conventionally want to interpret that as equating to a weekly amount of £10.00. This is by design.
 4. Technically neither a `QUARTER` nor `YEAR` are strictly either 13 weeks or 52 weeks exactly, since a year itself is not precisely 365 days. Such a level of discrimination will be bypassed here, however, by following the specified criteria of 13 and 52. In general usage our conventional calendar is "close enough", even allowing for some variability due to its inexact division into whole units. Only in the case of a `MONTH` is there a significant deviation, hence why it was deliberately rejected here; 31 days is quite a significant deviation from 28 as a divisor.
-5. An Amount of 0 is undefined/an edge case. Do we validate it as valid after acceptance? Since it is meaningless (at least in our context here, and computationally, for that matter) to attempt to divide by zero, it is therefore rejected during the validation algorithm and will always "validate as invalid". Similary for negative values (though one could make a legimate argument on the basis of it effectively showing a weekly amount owed, rather than an amount to be paid).
-6. No constraint is put upon the the maxima (or minima, for that matter) input Amount. Allowing an unconstrained input amount is a potential security risk at worst, or otherwise a bad implementation choice, since there are clear limits on the extent of currency amounts we would legitimately be interested in calculating. The system should not therefore accept an Amount value that has, say, 250,000 digits, since it clearly does not represent any sane currency payment. Indeed, the limit was set at 11 digits, which is still exceptionally generous, as it would allow currency payments of (at worst) "99999999.99" or (at best) "99999999999". So values up to £99,999,999.99, i.e. 99 million pounds. 11 characters seemed a sensible limit. So this particular limit is enforced by a `@Length` annotation on the Amount member variable.
+5. An Amount of `0` (or `0.00` if you prefer) is an undefined/an edge case. Do we validate it as valid after acceptance? Since it is meaningless (at least in our context here, and computationally, for that matter) to attempt to divide by zero, it is therefore rejected during the validation algorithm and will always "validate as invalid". Similary for negative values (though one could make a legimate argument on the basis of it effectively showing a weekly amount owed, rather than an amount to be paid).
+6. No constraint is put upon the the maxima (or minima, for that matter) input Amount. Allowing an unconstrained input amount is a potential security risk at worst, or otherwise a bad implementation choice, since there are clear limits on the extent of currency amounts we would legitimately be interested in calculating. The system should not therefore accept an Amount value that has, say, 250,000 *digits*, since it clearly does not represent any sane currency payment. Indeed, the limit was set at 11 characters in total (since the input is a String), which is still exceptionally generous, as it would allow currency payments of (at worst) "99999999.99" or (at best) "99999999999". So values up to £99,999,999.99 if specified with pence, i.e. 99 million pounds. 11 characters seemed a sensible limit. So this particular limit is enforced by a `@Length` annotation on the Amount member variable.
 
 # Implementation Notes
 
 ## Currency Verification
 
-The verification/acceptance of sane currency values (as per our term defintion above; see point 2. in the previous section) is accomplished through the application of a regular expression that pattern matches the Amount String. This method returns a boolean flag that indicates whether the value is a sane/acceptable representation of a currency:
+The verification/acceptance of sane currency values (as per our term defintion above; see point *2.* in the previous section) is accomplished through the application of a regular expression that pattern matches the Amount String. This method returns a boolean flag that indicates whether the value is a sane/acceptable representation of a currency:
 
 ```java
 private boolean isValidNumericAmount(String inputAmount)
@@ -189,7 +194,7 @@ private boolean isValidNumericAmount(String inputAmount)
 }
 ```
 
-Here the second pattern matching group (which can be omitted), if present, must have *precisely* two further digits after the point ".". This allows us to accept "300" or "300.30", but not "300.", "300.3", "300.300", "300.30000"... etc.
+Here the optional second pattern matching group, if present, must have *precisely* two further digits after a point ".". This allows us to accept "300" or "300.30", but not "300.", "300.3", "300.300", "300.30000"... etc.
 
 ## Frequency Enumeration Mapping
 
@@ -229,9 +234,9 @@ Note the deliberate mapping of `MONTH` to "-1.00" for reasons previously discuss
 
 ## Exact Pence Calcuation
 
-We need to exercise care with our underlying data types when making the actual pence determination. Java's inbuilt `double` type, like any floating point data type, is subject to rounding errors which can lead to unintended/unexpected results. For dealing with numbers where we want exact values, or exercise control over whether and how rounding occurs, we should therefore use Java's specialist `BigDecimal` type/object.
+We need to exercise care with our underlying data types when making the actual pence determination. Java's in-built `double` type, like any floating point data type, is subject to rounding errors which can lead to unintended/unexpected results. For dealing with numbers where we want exact values, or exercise control over whether and how rounding occurs, we should therefore use Java's specialist `BigDecimal` type/object.
 
-Initially, an approach (courtesy of an online StackExchange thread) counting decimal places based on its converstion to a String, and then counting the number of characters after "." was used; if this exceeded 2, then we could reject it, as it required greater resolution than one numerical pence Sterling:
+Initially, an approach (courtesy of an online [StackExchange](https://stackoverflow.com/questions/2296110/determine-number-of-decimal-place-using-bigdecimal) thread) counting decimal places based on its converstion to a String, and then counting the number of characters after "." was used; if this exceeded 2, then we could reject it, as it required greater resolution than one numerical pence sterling:
 
 ```java
 private int getNumberOfDecimalPlaces(BigDecimal bigDecimal)
@@ -242,7 +247,7 @@ private int getNumberOfDecimalPlaces(BigDecimal bigDecimal)
 }
 ```
 
-This solution works fine, however it is rather inelegant, especially as it turns out that `BigDecimal` has an explicit mode for dealing with rounding/rounding errors, and also allows you to explicitly specify the desired scale/precision of the number:
+This solution works fine, however it is rather inelegant, especially as it turns out that `BigDecimal` has an explicit mode for dealing with rounding/rounding errors, and also allows you to explicitly specify the desired scale/precision of the number, so it was replaced with this (excerpt):
 
 ```java
 if(numerator.compareTo(new BigDecimal("0")) > 0 
@@ -254,9 +259,9 @@ if(numerator.compareTo(new BigDecimal("0")) > 0
 }
 ```
 
-The `if` statement is here principally to enforce our desired numerator (an amount > £0.00) and denominator (a frequency >= 1.00), since we wish to reject those, and then the real work is done by the `RoundingMode.UNNECESSARY` rounding mode in conjunction with a scale (precision) of 2. That is, any number that requires more than two decimal places to *exactly* represent (i.e. less than a pence), throws an `ArithmeticException` which we can catch and therefore use as the basis for rejecting it as an invalid Amount.
+The `if` statement is here principally to enforce our desired numerator (an amount > £0.00) and denominator (a frequency < 1.00), since we wish to reject those, and then the real work is done by the `RoundingMode.UNNECESSARY` rounding mode in conjunction with a scale (precision) of 2. That is, any number that requires more than two decimal places to *exactly* represent (i.e. less than a pence), throws an `ArithmeticException` which we can catch and therefore use as the basis for rejecting it as an invalid Amount.
 
-# `RegularAmount` class
+## `RegularAmount` class
 
 Apart from adding `Javadoc` throughout the class, the only real addition was to use/overload a custom constructor for convenience, and also make sure that we do not have any uninitialised values being passed through to the validator class:
 
@@ -368,7 +373,7 @@ In any case, 99% code coverage was achieved (the missing 1% being an unreachable
 
 # Usage
 
-The Maven shade plugin is used to produce a "fat" JAR file, (which can be directly downloaded here(FIXME), if you would prefer to avoid having to build/compile from source by cloning the repository). Simply run the JAR file:
+The Maven shade plugin is used to produce a single "fat" JAR file with all dependencies bundled within it (which can be directly downloaded here(FIXME), if you would prefer to avoid having to build/compile from source by cloning the repository). Simply run the JAR file:
 
 `java -jar NHS_BSA_Assignment-1.0.jar`
 
@@ -388,7 +393,7 @@ Where ARG (without quotes) is one of:
 "4" : Demo test values, verbose messaging.
 ```
 
-So then just run it with the desired operation mode by specifying the command line argument. For example, to run it interative mode:
+So then just run it with the desired operation mode by specifying the command line argument. For example, to run it interactive mode:
 
 `java -jar NHS_BSA_Assignment-1.0.jar 1`
 
