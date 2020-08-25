@@ -91,5 +91,43 @@ public class RegularAmount
      * Acts as the divisor mapping value for determining whether an exact pence
      * amount is possible or not.
      */
-    public enum Frequency { WEEK, TWO_WEEK, FOUR_WEEK, MONTH, QUARTER, YEAR; };
+    public enum Frequency { 
+
+        /**
+         * Represents one week = mapped to a divisor of 1.0.
+         */
+        WEEK, 
+        
+        /**
+         * Represents two weeks = mapped to a divisor of 2.0.
+         */
+        TWO_WEEK, 
+        
+        /**
+         * Represents four weeks = mapped a divisor of 4.0.
+         */
+        FOUR_WEEK, 
+        
+        /**
+         * Represents one month, but not accepted as a valid weekly divisor. 
+         * 
+         * A month does not constitute any exact number of weeks; it is only ever
+         * four weeks for February, and only then for non-leap years. Therefore 
+         * specified as mapping to a divisor of -1.0 here by design.
+         */
+        MONTH, 
+        
+        /**
+         * Represents one yearly quarter = mapped to a divisor of 13.0.
+         */
+        QUARTER, 
+        
+        /**
+         * Represents one entire year = mapped to a divisor of 52.0 by design.
+         * 
+         * NOTE: A year technically does not exactly map to 52. However, here we
+         * are deferring to the requirements specification which states to map to 
+         * 52.
+         */
+        YEAR; };
 }
