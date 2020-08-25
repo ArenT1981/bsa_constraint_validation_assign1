@@ -31,14 +31,6 @@
 9\.  [Build/Compile](#build/compile)  
 10\.  [Issues](#issues)  
 11\.  [License](#license)  
-12\.  [Appendix](#appendix)  
-12.1\.  [Full Source Code Listing](#fullsourcecodelisting)  
-12.1.1\.  [`CheckRegularAmount.java`](#`checkregularamount.java`)  
-12.1.2\.  [`CheckRegularAmountValidator.java`](#`checkregularamountvalidator.java`)  
-12.1.3\.  [`RegularAmount.java`](#`regularamount.java`)  
-12.1.4\.  [`RegularAmountTest.java`](#`regularamounttest.java`)  
-12.1.5\.  [`RunAmount.java`](#`runamount.java`)  
-12.1.6\.  [`RunAmountTest.java`](#`runamounttest.java`)  
 
 <a name="metadata"></a>
 
