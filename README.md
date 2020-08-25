@@ -58,7 +58,7 @@ Note that the documentation zip file includes the following:
 
 * `Javadoc` - for all source files, including test classes
 * `JaCaCo` - code coverage report
-* Documentation PDF - (this file).
+* Documentation PDF.
 
 3. `git clone https://github.com/ArenT1981/bsa_constraint_validation_assign1` to get the entire repository. `jar`/`zip` files are found under the `assets/v1.0` subdirectory. 
 
