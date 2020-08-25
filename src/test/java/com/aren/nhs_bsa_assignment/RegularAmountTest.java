@@ -247,7 +247,7 @@ public class RegularAmountTest
         RegularAmount instance2  = new RegularAmount("0.0000000000000000000000000000001", Frequency.WEEK);
         // Dumb inputs (not currency number) tested later...
 
-        // 2. Test TWO_WEEK - Any odd pence values should gurantee to be invalid.
+        // 2. Test TWO_WEEK - Any odd pence values should guarantee to be invalid.
         RegularAmount instance3 = new RegularAmount("0.03", Frequency.TWO_WEEK);
         RegularAmount instance4 = new RegularAmount("3.77", Frequency.TWO_WEEK);
         RegularAmount instance5 = new RegularAmount("303.33", Frequency.TWO_WEEK);
