@@ -2,6 +2,8 @@
 
 # NHS BSA Assignment 1
 
+![](./assets/img/nhs-bsa-cli-demo-video.gif)
+
 1\.  [Metadata](#metadata)  
 2\.  [Synopsis](#synopsis)  
 3\.  [Download/Files](#download/files)  
